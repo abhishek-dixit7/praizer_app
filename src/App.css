@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar__icons {
+  height: 2rem;
+  width: 2rem;
+  color: white;
+  margin: 0rem 0.3rem;
+}

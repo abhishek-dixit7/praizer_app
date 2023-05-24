@@ -2,12 +2,12 @@ import React from "react";
 import { Card, Stack } from "react-bootstrap";
 export default function Rcard() {
   return (
-    <Stack className="col-md-5 mx-auto">
-      <Card className="bg-secondary bo text-white">
-        <Card.Header>Header</Card.Header>
+    <Stack className="col-md-9 mx-auto">
+      <Card className="bg-danger text-white">
+        <Card.Img src="" />
         <Card.Title> Title</Card.Title>
-        <Card body>Body</Card>
-        <Card.Footer>Footer</Card.Footer>
+        <Card.Body>Body</Card.Body>
+        <Card.Footer className="100vh">Footer</Card.Footer>
       </Card>
     </Stack>
   );
