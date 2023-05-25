@@ -3,6 +3,7 @@ import { FaQuestion } from "react-icons/fa";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { TbAwardFilled, TbDeviceMobile } from "react-icons/tb";
 import { MdCelebration } from "react-icons/md";
+import FAQs from "../faqs/index";
 const NavbarRoutes = {
   label: "Navbar Routes",
   labelDisable: false,
@@ -20,6 +21,7 @@ const NavbarRoutes = {
       icon: FaQuestion,
       to: "/Faqs",
       active: true,
+      component: FAQs,
     },
     {
       name: "Redeem Point",

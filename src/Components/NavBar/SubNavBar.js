@@ -12,12 +12,10 @@ function SubNavBar() {
           <Nav className="justify-content-start">
             {routes.children.map((route) => {
               return (
-                <>
-                  <Nav.Link key={route.keyword} to={route.path}>
-                    <route.icon />
-                    {route.name}
-                  </Nav.Link>
-                </>
+                <Nav.Link key={route.keyword} to={route.path}>
+                  <route.icon />
+                  {route.name}
+                </Nav.Link>
               );
             })}
           </Nav>
