@@ -1,4 +1,3 @@
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import AskMeLater from "./Components/AskMeLater";
 import NavBar from "./Components/Navbar";
@@ -9,13 +8,11 @@ import RouteComponents from "./Components/routes";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <RouteComponents />
-        <NavBar />
-        <SubNavBar />
-        <Rcard />
-        <AskMeLater />
-      </BrowserRouter>
+      <RouteComponents />
+      <NavBar />
+      <SubNavBar />
+      <Rcard />
+      <AskMeLater />
     </div>
   );
 }
