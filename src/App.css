@@ -43,3 +43,10 @@
   color: white;
   margin: 0rem 0.3rem;
 }
+
+.subnavbar__icons {
+  height: 1.5rem;
+  width: 2rem;
+  color: dark;
+  margin: 0rem 0.1rem;
+}
