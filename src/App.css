@@ -50,3 +50,31 @@
   color: dark;
   margin: 0rem 0.1rem;
 }
+
+.banner__text {
+  position: absolute;
+  top: 25%;
+  font-size: 2rem;
+  font-weight: 500;
+  color: black;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.232);
+}
+
+.banner__text-left {
+  left: 5%;
+}
+
+.banner__text-right {
+  right: 5%;
+}
+
+.access__a-tag a {
+  display: flex;
+  align-items: center;
+}
+
+.access__a-tag-help a {
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+}

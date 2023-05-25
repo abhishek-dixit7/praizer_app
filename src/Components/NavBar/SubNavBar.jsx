@@ -4,7 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import routes from "../routes/routes";
 import { NavLink } from "react-router-dom";
-function SubNavBar() {
+
+export default function SubNavBar() {
   console.log(routes);
   return (
     <div>
@@ -29,5 +30,3 @@ function SubNavBar() {
     </div>
   );
 }
-
-export default SubNavBar;
