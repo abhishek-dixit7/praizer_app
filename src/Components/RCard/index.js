@@ -3,7 +3,7 @@ import { Card, Stack } from "react-bootstrap";
 export default function Rcard() {
   return (
     <Stack className="col-md-9 mx-auto">
-      <Card className="bg-success text-white" >
+      <Card className="bg-success text-white">
         <Card.Img src="" />
         <Card.Title> Title</Card.Title>
         <Card.Body>Body</Card.Body>

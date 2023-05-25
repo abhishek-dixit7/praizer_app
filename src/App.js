@@ -4,14 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import RouteComponents from "./Components/routes";
 import React from "react";
 import { NavBar, SubNavBar, Banner } from "./Components/NavBar";
+import ProfileCard from "./Components/ProfileCard";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App col-md-9 mx-auto">
       <NavBar />
       <SubNavBar />
       <Banner />
-      <Rcard />
+      <ProfileCard />
       <RouteComponents />
     </div>
   );

@@ -8,7 +8,7 @@ import brand_logo from "../../assets/brand_logo.jpg";
 const NavBar = () => {
   return (
     <>
-      <Navbar className="bg-dark justify-content-between col-md-9 mx-auto">
+      <Navbar className="bg-dark justify-content-between">
         <Container className="justify-content-start">
           <Navbar.Brand href="#" className="">
             <img

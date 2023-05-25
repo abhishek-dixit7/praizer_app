@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -77,4 +79,9 @@
   margin-top: 2px;
   display: flex;
   align-items: center;
+}
+
+.profile__card123 {
+  width: 10rem;
+  height: 20rem;
 }

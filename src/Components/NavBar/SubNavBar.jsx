@@ -9,7 +9,7 @@ export default function SubNavBar() {
   console.log(routes);
   return (
     <div>
-      <Navbar className="bg-light col-md-9 mx-auto ">
+      <Navbar className="bg-light ">
         <Container>
           {routes.children.map((route) => {
             return (

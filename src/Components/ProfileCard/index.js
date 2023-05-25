@@ -1,18 +1,24 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import brand_logo from "../../assets/brand_logo.jpg";
 
 function ProfileCard() {
   return (
-    <div>
-      <Card style={{ width: "10rem", height: "20rem" }}>
-        <Card.Header>Profile</Card.Header>
+    <div className="mt-1">
+      <Card
+        style={{ width: "15rem", height: "20rem" }}
+        className="bg-secondary text-white"
+      >
         <Card.Img
-          variant="top"
-          src="https://pixabay.com/photos/link-parts-url-browser-short-5219567/"
+          src={brand_logo}
           alt="Profile Photo"
+          className="rounded-circle mt-3 "
         />
+        <Card.Title className="mt-2">Profile Name</Card.Title>
         <Card.Body></Card.Body>
-        <Card.Footer></Card.Footer>
+        <Card.Footer className="bg-secondary text-white">
+          Made by Gods
+        </Card.Footer>
       </Card>
     </div>
   );
