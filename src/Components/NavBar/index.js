@@ -1,8 +1,7 @@
 import React from "react";
-import { Navbar, Form, Button, Container } from "react-bootstrap";
+import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
 import { GiShoppingCart } from "react-icons/gi";
 import { IoMdNotifications } from "react-icons/io";
-import { Link } from "react-router-dom";
 
 import brand_logo from "../../assets/brand_logo.jpg";
 
@@ -36,6 +35,21 @@ const NavBar = () => {
           <a href="#">
             <IoMdNotifications className="d-inline-block align-top navbar__icons" />
           </a>
+          <NavDropdown
+            title="Account"
+            id="basic-nav-dropdown"
+            className="text-white"
+          >
+            <NavDropdown.Item href="#">Account Setting</NavDropdown.Item>
+            <NavDropdown.Item href="#">Logout</NavDropdown.Item>
+          </NavDropdown>
+          <NavDropdown
+            title="Help"
+            id="basic-nav-dropdown"
+            className="text-white"
+          >
+            <NavDropdown.Item href="#">Contact Us</NavDropdown.Item>
+          </NavDropdown>
         </Container>
       </Navbar>
     </>

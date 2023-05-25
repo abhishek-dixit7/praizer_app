@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import FAQs from "../faqs";
 import Celebrations from "../Celebrations";
 import DownloadMobile from "../DownloadMobile";
@@ -8,17 +8,15 @@ import RedeemPoints from "../RedeemPoints";
 import Dashboard from "../Dashboard";
 function RouteComponents() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route to="/" element={<Dashboard />} exact={true} />
-        <Route to="/home" element={<Dashboard />} />
-        <Route to="/faqs" element={<FAQs />} exact />
-        <Route to="/celebrations" element={<Celebrations />} exact />
-        <Route to="/DownloadMobile" Component={DownloadMobile} />
-        <Route to="/Valueawardwinner" element={<ValueAwardWinner />} />
-        <Route to="/redeempoint" element={<RedeemPoints />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Dashboard />} exact={true} />
+      <Route path="/home" element={<Dashboard />} />
+      <Route path="/faqs" element={<FAQs />} exact />
+      <Route path="/celebrations" element={<Celebrations />} exact />
+      <Route path="/DownloadMobile" Component={DownloadMobile} />
+      <Route path="/Valueawardwinner" element={<ValueAwardWinner />} />
+      <Route path="/redeempoint" element={<RedeemPoints />} />
+    </Routes>
   );
 }
 
