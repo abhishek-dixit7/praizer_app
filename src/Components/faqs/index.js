@@ -1,7 +1,12 @@
 import React from "react";
+import FaqsCard from "./FaqsCard";
 
 function FAQs() {
-  return <div>faqs</div>;
+  return (
+    <div>
+      <FaqsCard />
+    </div>
+  );
 }
 
 export default FAQs;

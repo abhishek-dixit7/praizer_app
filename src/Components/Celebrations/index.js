@@ -1,7 +1,12 @@
 import React from "react";
+import CelebrationCard from "./CelebrationCard";
 
 function Celebrations() {
-  return <div>Celebrations</div>;
+  return (
+    <div>
+      <CelebrationCard />
+    </div>
+  );
 }
 
 export default Celebrations;

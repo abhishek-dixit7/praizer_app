@@ -1,7 +1,12 @@
 import React from "react";
+import DashboardCard from "./DashboardCard";
 
 function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <DashboardCard />
+    </div>
+  );
 }
 
 export default Dashboard;

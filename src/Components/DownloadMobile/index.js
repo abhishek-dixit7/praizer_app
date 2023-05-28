@@ -1,7 +1,12 @@
 import React from "react";
+import MobileCard from "./MobileCard";
 
 function DownloadMobile() {
-  return <div>DownloadMobile</div>;
+  return (
+    <div>
+      <MobileCard />
+    </div>
+  );
 }
 
 export default DownloadMobile;

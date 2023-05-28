@@ -1,7 +1,8 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import brand_logo from "../../assets/brand_logo.jpg";
-
+import { NavLink } from "react-router-dom";
+import { BsInfoCircleFill } from "react-icons/bs";
 function ProfileCard() {
   return (
     <div className="mt-1">
@@ -16,8 +17,13 @@ function ProfileCard() {
         />
         <Card.Title className="mt-2">Profile Name</Card.Title>
         <Card.Body></Card.Body>
-        <Card.Footer className="bg-secondary text-white">
-          Made by Gods
+        <Card.Footer
+          as={NavLink}
+          to="/myteam"
+          className="bg-secondary text-white"
+        >
+          <BsInfoCircleFill className="mx-2" />
+          <span>My team</span>
         </Card.Footer>
       </Card>
     </div>

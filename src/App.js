@@ -1,10 +1,11 @@
 import "./App.css";
-import Rcard from "./Components/RCard";
+// import Rcard from "./Components/RCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RouteComponents from "./Components/routes";
 import React from "react";
-import { NavBar, SubNavBar, Banner } from "./Components/NavBar";
+import { NavBar, SubNavBar, Banner } from "./Components/Navbar";
 import ProfileCard from "./Components/ProfileCard";
+import { CardGroup } from "react-bootstrap";
 
 function App() {
   return (
@@ -12,10 +13,11 @@ function App() {
       <NavBar />
       <SubNavBar />
       <Banner />
-      <ProfileCard />
-      <RouteComponents />
+      <CardGroup>
+        <ProfileCard />
+        <RouteComponents />
+      </CardGroup>
     </div>
   );
 }
-
 export default App;

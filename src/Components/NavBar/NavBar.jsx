@@ -30,10 +30,10 @@ const NavBar = () => {
         </Container>
         <Container className="justify-content-end ml-5">
           <Container className="d-flex justify-content-around align-item-center text-center">
-            <a href="#">
+            <a href="/">
               <GiShoppingCart className="d-inline-block align-top navbar__icons" />
             </a>
-            <a href="#">
+            <a href="/">
               <IoMdNotifications className="d-inline-block align-top navbar__icons" />
             </a>
             <NavDropdown
