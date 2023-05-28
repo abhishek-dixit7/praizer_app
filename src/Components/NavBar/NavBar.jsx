@@ -60,7 +60,7 @@ const NavBar = () => {
               id="basic-nav-dropdown"
               className="text-white mt-1 access__a-tag-help"
             >
-              <NavDropdown.Item href="#">Contact Us</NavDropdown.Item>
+              <NavDropdown.Item href="/contact">Contact Us</NavDropdown.Item>
             </NavDropdown>
           </Container>
         </Container>

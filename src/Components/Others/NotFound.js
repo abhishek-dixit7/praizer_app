@@ -7,7 +7,9 @@ export default function NotFound() {
   return (
     <div>
       <Stack className="col-md-9 mx-auto">
-        <Card>
+        <Card
+          style={{ position: "absolute", width: "42.3rem", height: "20rem" }}
+        >
           <Card.Header>
             <h5>{currentUrl.pathname.substring(1)}</h5>
           </Card.Header>

@@ -6,8 +6,9 @@ import DownloadMobile from "../DownloadMobile";
 import ValueAwardWinner from "../ValueAwardWinner";
 import RedeemPoints from "../RedeemPoints";
 import Dashboard from "../Dashboard";
-import NotFound from "../NotFound";
+import NotFound from "../Others/NotFound";
 import MyTeam from "../MyTeam";
+import Contact from "../Others/Contact";
 function RouteComponents() {
   return (
     <Routes>
@@ -19,6 +20,7 @@ function RouteComponents() {
       <Route path="/Valueawardwinner" element={<ValueAwardWinner />} />
       <Route path="/redeempoint" element={<RedeemPoints />} />
       <Route path="/myteam" element={<MyTeam />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
