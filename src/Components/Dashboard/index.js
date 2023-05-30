@@ -3,7 +3,7 @@ import DashboardCard from "./DashboardCard";
 
 function Dashboard() {
   return (
-    <div>
+    <div style={{ flexBasis: "60%" }}>
       <DashboardCard />
     </div>
   );

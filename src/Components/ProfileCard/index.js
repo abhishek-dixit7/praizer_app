@@ -5,11 +5,8 @@ import { NavLink } from "react-router-dom";
 import { BsInfoCircleFill } from "react-icons/bs";
 function ProfileCard() {
   return (
-    <div className="mt-1">
-      <Card
-        style={{ width: "15rem", height: "20rem" }}
-        className="bg-secondary text-white"
-      >
+    <div className="mt-1" style={{ flexBasis: "20%" }}>
+      <Card style={{ height: "20rem" }} className="bg-secondary text-white">
         <Card.Img
           src={brand_logo}
           alt="Profile Photo"
