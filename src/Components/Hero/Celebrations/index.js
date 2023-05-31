@@ -3,7 +3,7 @@ import CelebrationCard from "./CelebrationCard";
 
 function Celebrations() {
   return (
-    <div>
+    <div style={{ flexBasis: "20%" }}>
       <CelebrationCard />
     </div>
   );

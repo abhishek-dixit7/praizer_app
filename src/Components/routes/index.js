@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import FAQs from "../faqs";
-import Celebrations from "../Celebrations";
+import Celebrations from "../Hero/Celebrations";
 import DownloadMobile from "../DownloadMobile";
 import ValueAwardWinner from "../ValueAwardWinner";
 import RedeemPoints from "../RedeemPoints";
-import Dashboard from "../Dashboard";
+import Dashboard from "../Hero/Dashboard";
 import NotFound from "../Others/NotFound";
 import MyTeam from "../MyTeam";
 import Contact from "../Others/Contact";

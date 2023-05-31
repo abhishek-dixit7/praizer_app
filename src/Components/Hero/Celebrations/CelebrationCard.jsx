@@ -1,12 +1,18 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import BirthdayCard from "./BirthdayCard";
 
 export default function CelebrationCard() {
   return (
     <div className="mt-1 mx-1">
-      <Card style={{ position: "absolute", width: "42.3rem", height: "20rem" }}>
+      <Card className="hero-cards">
         <Card.Header as={"h5"}>Celebrations</Card.Header>
-        <Card.Body></Card.Body>
+        <Card.Body>
+          <BirthdayCard />
+          <BirthdayCard />
+          <BirthdayCard />
+          <BirthdayCard />
+        </Card.Body>
         <Card.Footer></Card.Footer>
       </Card>
     </div>
