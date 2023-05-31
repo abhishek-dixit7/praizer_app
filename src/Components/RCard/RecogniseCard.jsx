@@ -1,0 +1,31 @@
+import React from "react";
+import { Stack, Card } from "react-bootstrap";
+import { recogniseValues } from "../data/constants";
+import LikeButton from "../subComponents/Buttons/LikeButton";
+function RecogniseCard(props) {
+  const reValues = recogniseValues;
+  const params = { ...props.values };
+  console.log(params);
+  return (
+    <div>
+      {" "}
+      <Stack className="col-md-9 mx-auto">
+        <Card>
+          <Card.Img src="" />
+          <Card.Title> Title</Card.Title>
+          <Card.Body>
+            <span>Praised for {reValues[params.name]}</span>
+            <p>{params.comment}</p>
+            <p>Tom Holland</p>
+            <span>Praised by {params.from}</span>
+          </Card.Body>
+          <Card.Footer className="100vh">
+            <LikeButton />
+          </Card.Footer>
+        </Card>
+      </Stack>
+    </div>
+  );
+}
+
+export default RecogniseCard;
