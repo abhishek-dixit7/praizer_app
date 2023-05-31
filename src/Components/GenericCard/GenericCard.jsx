@@ -4,7 +4,7 @@ import { VscGift } from "react-icons/vsc";
 
 import { cardValues } from "../data/constants";
 import Rcard from "../RCard";
-import LikeButton from "../subComponents/Buttons/LikeButton";
+import LikeButton from "../subComponents/LikeButton";
 function GenericCard(props) {
   console.log(cardValues);
   return (

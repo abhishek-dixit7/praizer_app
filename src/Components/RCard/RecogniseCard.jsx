@@ -1,7 +1,7 @@
 import React from "react";
-import { Stack, Card } from "react-bootstrap";
+import { Stack, Card, Button } from "react-bootstrap";
 import { recogniseValues } from "../data/constants";
-import LikeButton from "../subComponents/Buttons/LikeButton";
+import LikeButton from "../subComponents/LikeButton";
 function RecogniseCard(props) {
   const reValues = recogniseValues;
   const params = { ...props.values };
@@ -12,7 +12,9 @@ function RecogniseCard(props) {
       <Stack className="col-md-9 mx-auto">
         <Card>
           <Card.Img src="" />
-          <Card.Title> Title</Card.Title>
+          <Card.Title>
+            <Button variant="light" >Title</Button>
+          </Card.Title>
           <Card.Body>
             <span>Praised for {reValues[params.name]}</span>
             <p>{params.comment}</p>
