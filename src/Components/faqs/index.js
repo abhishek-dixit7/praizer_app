@@ -3,7 +3,7 @@ import FaqsCard from "./FaqsCard";
 
 function FAQs() {
   return (
-    <div>
+    <div style={{ flexBasis: "80%" }}>
       <FaqsCard />
     </div>
   );

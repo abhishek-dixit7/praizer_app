@@ -3,7 +3,7 @@ import RedeemPointsCard from "./RedeemPointsCard";
 
 function RedeemPoints() {
   return (
-    <div>
+    <div style={{ flexBasis: "80%" }}>
       <RedeemPointsCard />
     </div>
   );

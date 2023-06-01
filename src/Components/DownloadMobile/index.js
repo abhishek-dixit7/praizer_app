@@ -3,7 +3,7 @@ import MobileCard from "./MobileCard";
 
 function DownloadMobile() {
   return (
-    <div>
+    <div style={{ flexBasis: "80%" }}>
       <MobileCard />
     </div>
   );

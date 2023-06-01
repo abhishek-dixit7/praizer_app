@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 function RedeemPointsCard() {
   return (
     <div className="mt-1 mx-1">
-      <Card style={{ position: "absolute", width: "42.3rem", height: "20rem" }}>
+      <Card style={{ minHeight: "20rem" }}>
         <Card.Header as={"h5"}>Redeem Points</Card.Header>
         <Card.Body></Card.Body>
         <Card.Footer></Card.Footer>

@@ -2,7 +2,7 @@ import React from "react";
 import ValueAwardWinnerCard from "./ValueAwardWinnerCard";
 function ValueAwardWinner() {
   return (
-    <div>
+    <div style={{ flexBasis: "80%" }}>
       <ValueAwardWinnerCard />
     </div>
   );
