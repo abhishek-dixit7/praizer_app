@@ -17,13 +17,11 @@ function RecogniseCard(props) {
         <Card.Img src="" />
         <Card.Title>
           <Row>
-            <Col lg="1">
+            <Col lg="2">
               <Button variant="light" onClick={showTitle}>
                 Title
               </Button>
-              
             </Col>
-            <Col lg="11">Icon</Col>
           </Row>
         </Card.Title>
         <Card.Body>
@@ -52,5 +50,4 @@ function RecogniseCard(props) {
     </div>
   );
 }
-
 export default RecogniseCard;
