@@ -1,6 +1,7 @@
 export const cardValues = [
   "Happy Birthday to you",
   "Congratulations on your service Anniversary",
+  "Joined the Program",
 ];
 
 export const recogniseValues = {
