@@ -14,11 +14,13 @@ export default function ProfileCardDetails() {
         />
         <Card.Title className="mt-4">Profile Name</Card.Title>
         <Card.Body>
-          <h3>300</h3>
-          <p>Points Balance</p>
-          <hr />
-          <p>Points to Award</p>
-          <h3>300</h3>
+          <Card className="bg-light text-black">
+            <h3>300</h3>
+            <h5>Points Balance</h5>
+            <hr />
+            <h5>Points to Award</h5>
+            <h3>300</h3>
+          </Card>
         </Card.Body>
         <Card.Footer
           as={NavLink}

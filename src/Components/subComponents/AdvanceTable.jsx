@@ -2,7 +2,6 @@ import React from "react";
 import { Table } from "react-bootstrap";
 function AdvanceTable(props) {
   const { headers, data } = props;
-  console.log("Data", headers, data);
   return (
     <div>
       <Table responsive="lg">
@@ -23,6 +22,7 @@ function AdvanceTable(props) {
           ))}
         </tbody>
       </Table>
+      <br />
     </div>
   );
 }

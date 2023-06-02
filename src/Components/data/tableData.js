@@ -1,4 +1,4 @@
-export const redeemHeaders = {
+export const redeemAwardWinnerData = {
   headers: [
     {
       key: "firstName",
