@@ -3,12 +3,14 @@ import { Card } from "react-bootstrap";
 
 function MyTeam() {
   return (
-    <div>
-      <Card style={{ position: "relative", width: "25rem" }}>
-        <Card.Header>
-          <span className="flex flex-col">My Team</span>
-        </Card.Header>
-      </Card>
+    <div style={{ flexBasis: "80%" }}>
+      <div className="mt-1 mx-1">
+        <Card style={{ minHeight: "20rem" }}>
+          <Card.Header as={"h5"}>Team </Card.Header>
+          <Card.Body></Card.Body>
+          <Card.Footer></Card.Footer>
+        </Card>
+      </div>
     </div>
   );
 }
