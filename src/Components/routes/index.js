@@ -12,7 +12,7 @@ import Contact from "../Others/Contact";
 function RouteComponents() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} exact={true} />
+      <Route path="/" element={<Dashboard />} exact />
       <Route path="/home" element={<Dashboard />} />
       <Route path="/faqs" element={<FAQs />} exact />
       <Route path="/celebrations" element={<Celebrations />} exact />

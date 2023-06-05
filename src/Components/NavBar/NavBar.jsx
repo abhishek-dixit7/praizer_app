@@ -1,11 +1,57 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
 import { GiShoppingCart } from "react-icons/gi";
 import { IoMdNotifications } from "react-icons/io";
+import { auth } from "../../utils/firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 import brand_logo from "../../assets/brand_logo.jpg";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
+
+  //Sign in with google
+  const googleProvider = new GoogleAuthProvider();
+  const GoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      navigate.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const LoginPraizer = async () => {
+    try {
+      const response = await axios.post(
+        "https://localhost:7226/api/auth/firebase-login",
+        {
+          IdToken: user.idToken,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      LoginPraizer();
+      navigate("/");
+    } else {
+      console.log("login");
+    }
+  }, [user]);
+
   return (
     <>
       <Navbar className="bg-dark justify-content-between">
@@ -36,25 +82,42 @@ const NavBar = () => {
             <a href="/">
               <IoMdNotifications className="d-inline-block align-top navbar__icons" />
             </a>
-            <NavDropdown
-              title={
-                <div>
-                  <img
-                    src={brand_logo}
-                    width="30"
-                    height="30"
-                    alt="profile_logo"
-                    className="rounded-circle"
-                  />{" "}
-                  Account
-                </div>
-              }
-              id="basic-nav-dropdown"
-              className=" text-white mt-1 access__a-tag "
-            >
-              <NavDropdown.Item href="#">Account Setting</NavDropdown.Item>
-              <NavDropdown.Item href="#">Logout</NavDropdown.Item>
-            </NavDropdown>
+            {!user && (
+              <div
+                className="mt-1"
+                style={{ cursor: "pointer" }}
+                onClick={GoogleLogin}
+              >
+                <Navbar.Text className="text-white">Login</Navbar.Text>
+              </div>
+            )}
+            {user && (
+              <NavDropdown
+                title={
+                  <div>
+                    <img
+                      src={user.photoURL}
+                      width="30"
+                      height="30"
+                      alt="profile_logo"
+                      className="rounded-circle"
+                    />{" "}
+                    Account
+                  </div>
+                }
+                id="basic-nav-dropdown"
+                className="text-white mt-1 access__a-tag "
+              >
+                <NavDropdown.Item href="#">Account Setting</NavDropdown.Item>
+                <Navbar.Text
+                  className="dropdown-item"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => auth.signOut()}
+                >
+                  Logout
+                </Navbar.Text>
+              </NavDropdown>
+            )}
             <NavDropdown
               title={<div>Help</div>}
               id="basic-nav-dropdown"

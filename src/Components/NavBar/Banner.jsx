@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 export default function Banner() {
   return (
     <div>
-      <Card className=" position-relative" as={NavLink} to="/" exact>
+      <Card className=" position-relative" as={NavLink} to="/">
         <div>
           <span className="banner__text banner__text-left">Praiser</span>
           <span className="banner__text banner__text-right">By Gods</span>
@@ -15,7 +15,7 @@ export default function Banner() {
           variant="bottom"
           height="100"
           width="20"
-          style={{ "object-fit": "contain" }}
+          style={{ objectFit: "contain" }}
           src={banner}
           alt="Image"
         />
