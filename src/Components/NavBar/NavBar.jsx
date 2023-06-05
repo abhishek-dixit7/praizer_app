@@ -19,25 +19,35 @@ const NavBar = () => {
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      navigate.push("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const LoginPraizer = async () => {
+  const LoginPraizer = async (idToken) => {
     try {
-      const response = await axios.post(
-        "https://localhost:7226/api/auth/firebase-login",
-        {
-          IdToken: user.idToken,
-        },
-        {
+      const requestBody = {
+        IdToken: idToken,
+      };
+
+      // axios({
+      //   method: "post",
+      //   url: "https://localhost:7226/api/auth/firebase-login",
+      //   data: JSON.stringify(requestBody),
+      //   headers: { "Content-Type": "application/json" },
+      // }).then((apiResponse) => {
+      //   console.log(apiResponse.data);
+      //   // response.json(products);
+      // });
+
+      const data = await axios
+        .post("https://localhost:7226/api/auth/firebase-login", requestBody, {
           headers: {
             "Content-Type": "application/json",
           },
-        }
-      );
+        })
+        .then((r) => console.log(r.data));
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +55,8 @@ const NavBar = () => {
 
   useEffect(() => {
     if (user) {
-      LoginPraizer();
+      console.log(user);
+      LoginPraizer(user.accessToken);
       navigate("/");
     } else {
       console.log("login");
