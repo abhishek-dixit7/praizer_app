@@ -1,13 +1,35 @@
-import axios from "axios";
-const baseURL = "https://localhost:7226/api/";
-export const LoginService = (data) => {
-  axios
-    .post(`${baseURL}api/auth/firebase-login`, JSON.stringify(data), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((r) => console.log(r.data));
+import api from "./api";
+// const baseURL = "https://localhost:44306/";
+
+export const LoginService = async (data) => {
+  try {
+    const response = await api.post(
+      "/auth/firebase-login",
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    // The JWT token is automatically handled by the interceptor, so you don't need to do anything extra here.
+    console.log("Login successful!");
+  } catch (error) {
+    console.error("Login failed:", error);
+  }
+
+  // axios
+  //   .post(
+  //     `${process.env.REACT_APP_baseURL}api/auth/firebase-login`,
+  //     JSON.stringify(data),
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   )
+  //   .then((r) => console.log(r.data))
+  //   .catch((error) => console.log(error));
 };
 
 // axios({
