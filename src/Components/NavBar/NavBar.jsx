@@ -10,6 +10,7 @@ import { GoogleLogin, LoginService } from "../../_services/LoginService";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const NavBar = () => {
     } else {
       console.log("please login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

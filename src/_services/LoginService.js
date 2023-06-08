@@ -10,6 +10,7 @@ export const LoginService = async (data) => {
       IdToken: data,
     };
 
+    // eslint-disable-next-line no-unused-vars
     const response = await api.post(
       "/auth/firebase-login",
       JSON.stringify(requestBody),
