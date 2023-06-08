@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../utils/firebase";
 
 export default function ProfileCardDetails() {
+  // eslint-disable-next-line no-unused-vars
   const [user, loading] = useAuthState(auth);
 
   return (

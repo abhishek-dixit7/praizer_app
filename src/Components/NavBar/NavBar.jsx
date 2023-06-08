@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
@@ -6,18 +6,19 @@ import { GiShoppingCart } from "react-icons/gi";
 import { IoMdNotifications } from "react-icons/io";
 import { auth } from "../../utils/firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import axios from "axios";
-
 import brand_logo from "../../assets/brand_logo.jpg";
+import { LoginService } from "../../_services/LoginService";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const [user, loading] = useAuthState(auth);
 
   //Sign in with google
   const googleProvider = new GoogleAuthProvider();
   const GoogleLogin = async () => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const result = await signInWithPopup(auth, googleProvider);
       navigate("/");
     } catch (error) {
@@ -30,24 +31,8 @@ const NavBar = () => {
       const requestBody = {
         IdToken: idToken,
       };
-
-      // axios({
-      //   method: "post",
-      //   url: "https://localhost:7226/api/auth/firebase-login",
-      //   data: JSON.stringify(requestBody),
-      //   headers: { "Content-Type": "application/json" },
-      // }).then((apiResponse) => {
-      //   console.log(apiResponse.data);
-      //   // response.json(products);
-      // });
-
-      const data = await axios
-        .post("https://localhost:7226/api/auth/firebase-login", requestBody, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((r) => console.log(r.data));
+      // eslint-disable-next-line no-unused-vars
+      const data = await LoginService(requestBody);
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +46,7 @@ const NavBar = () => {
     } else {
       console.log("login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
