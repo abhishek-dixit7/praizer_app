@@ -1,11 +1,18 @@
+import { auth } from "../utils/firebase";
 import api from "./api";
-// const baseURL = "https://localhost:44306/";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+const googleProvider = new GoogleAuthProvider();
 
 export const LoginService = async (data) => {
   try {
+    const requestBody = {
+      IdToken: data,
+    };
+
     const response = await api.post(
       "/auth/firebase-login",
-      JSON.stringify(data),
+      JSON.stringify(requestBody),
       {
         headers: {
           "Content-Type": "application/json",
@@ -17,27 +24,12 @@ export const LoginService = async (data) => {
   } catch (error) {
     console.error("Login failed:", error);
   }
-
-  // axios
-  //   .post(
-  //     `${process.env.REACT_APP_baseURL}api/auth/firebase-login`,
-  //     JSON.stringify(data),
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   )
-  //   .then((r) => console.log(r.data))
-  //   .catch((error) => console.log(error));
 };
 
-// axios({
-//   method: "post",
-//   url: "https://localhost:7226/api/auth/firebase-login",
-//   data: JSON.stringify(requestBody),
-//   headers: { "Content-Type": "application/json" },
-// }).then((apiResponse) => {
-//   console.log(apiResponse.data);
-//   // response.json(products);
-// });
+export const GoogleLogin = async () => {
+  try {
+    await signInWithPopup(auth, googleProvider);
+  } catch (error) {
+    console.log(error);
+  }
+};

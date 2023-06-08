@@ -9,6 +9,7 @@ import Dashboard from "../Hero/Dashboard";
 import NotFound from "../Others/NotFound";
 import MyTeam from "../MyTeam";
 import Contact from "../Others/Contact";
+import AccountSetting from "../Hero/ProfileCard/AccountSetting";
 function RouteComponents() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function RouteComponents() {
       <Route path="/redeempoint" element={<RedeemPoints />} />
       <Route path="/myteam" element={<MyTeam />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/accountsetting" element={<AccountSetting />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

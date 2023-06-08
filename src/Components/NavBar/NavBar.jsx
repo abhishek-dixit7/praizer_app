@@ -1,52 +1,24 @@
 import { React, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
 import { GiShoppingCart } from "react-icons/gi";
 import { IoMdNotifications } from "react-icons/io";
 import { auth } from "../../utils/firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import brand_logo from "../../assets/brand_logo.jpg";
-import { LoginService } from "../../_services/LoginService";
+import { GoogleLogin, LoginService } from "../../_services/LoginService";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
   const [user, loading] = useAuthState(auth);
-
-  //Sign in with google
-  const googleProvider = new GoogleAuthProvider();
-  const GoogleLogin = async () => {
-    try {
-      // eslint-disable-next-line no-unused-vars
-      const result = await signInWithPopup(auth, googleProvider);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const LoginPraizer = async (idToken) => {
-    try {
-      const requestBody = {
-        IdToken: idToken,
-      };
-      // eslint-disable-next-line no-unused-vars
-      const data = await LoginService(requestBody);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     if (user) {
-      console.log(user);
-      LoginPraizer(user.accessToken);
+      LoginService(user.accessToken);
       navigate("/");
     } else {
-      console.log("login");
+      console.log("please login");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -105,7 +77,10 @@ const NavBar = () => {
                 id="basic-nav-dropdown"
                 className="text-white mt-1 access__a-tag "
               >
-                <NavDropdown.Item href="#">Account Setting</NavDropdown.Item>
+                <NavLink className="dropdown-item" to="/accountsetting">
+                  Account Setting
+                </NavLink>
+
                 <Navbar.Text
                   className="dropdown-item"
                   style={{ cursor: "pointer" }}

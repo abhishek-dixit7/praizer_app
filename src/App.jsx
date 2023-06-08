@@ -14,14 +14,20 @@ function App() {
   return (
     <div className="App mx-auto">
       <NavBar />
-      <SubNavBar />
-      <Banner />
-      {!user && <div className="fs-1 mt-5">Please Login</div>}
+      {loading ? (
+        <div className="fs-1 mt-5">Loading...</div>
+      ) : (
+        !user && <div className="fs-1 mt-5">Please Login</div>
+      )}
       {!loading && user && (
-        <CardGroup>
-          <ProfileCard />
-          <RouteComponents />
-        </CardGroup>
+        <>
+          <SubNavBar />
+          <Banner />
+          <CardGroup>
+            <ProfileCard />
+            <RouteComponents />
+          </CardGroup>
+        </>
       )}
     </div>
   );
