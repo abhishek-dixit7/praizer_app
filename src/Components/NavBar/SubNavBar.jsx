@@ -6,7 +6,6 @@ import routes from "../routes/routes";
 import { NavLink } from "react-router-dom";
 
 export default function SubNavBar() {
-  console.log(routes);
   return (
     <div>
       <Navbar className="bg-light ">

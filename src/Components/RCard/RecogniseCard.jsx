@@ -10,7 +10,6 @@ function RecogniseCard(props) {
   const showTitle = () => {
     setTitle(!title);
   };
-  console.log(params);
   return (
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
