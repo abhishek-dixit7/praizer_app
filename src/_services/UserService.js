@@ -1,9 +1,11 @@
 import api from "./api";
+
 const token = localStorage.getItem("jwtToken");
 if (token) {
   // Include the JWT token in the request headers
   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
+
 export const fetchUsersData = async () => {
   try {
     // Make the API call
@@ -18,6 +20,12 @@ export const fetchUsersData = async () => {
 };
 
 export const GetUserDetailsByUid = async (uid) => {
-  const data = await api.get(`/Users/getUserDetailsByUid?uid=${uid}`);
-  return data.data;
+  try {
+    const response = await api.get(`/Users/getUserDetailsByUid?uid=${uid}`);
+    const userData = response.data;
+
+    return userData;
+  } catch (error) {
+    console.error("Failed to fetch user data:", error);
+  }
 };

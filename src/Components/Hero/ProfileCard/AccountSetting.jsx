@@ -2,18 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { GetUserDetailsByUid } from "../../../_services/UserService";
 
+import { auth } from "../../../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const AccountSetting = () => {
+  const [user, loading] = useAuthState(auth);
+
   const [formData, setFormData] = useState({
-    DOB: "1999-09-28",
-    DOJ: "2023-05-12",
+    dateOfBirth: "1999-09-17",
+    dateOfJoining: "2023-05-12",
   });
-  const [userDetails, setUserDetails] = useState({});
+
   useEffect(() => {
-    GetUserDetailsByUid("f7orWXSPVoTUltGxLpdhGpHGXcC3").then((res) =>
-      setUserDetails(res)
-    );
-    console.log("userDetails", userDetails);
+    fetchUserData();
   }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const data = await GetUserDetailsByUid(user.uid);
+      setFormData({
+        ...formData,
+        dateOfBirth: data.dateOfBirth,
+        dateOfJoining: data.dateOfJoining,
+      });
+    } catch (error) {}
+  };
 
   return (
     <div style={{ flexBasis: "80%", textAlign: "start" }}>
@@ -23,9 +36,9 @@ const AccountSetting = () => {
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="date"
-              value={formData.DOB}
+              value={formData.dateOfBirth}
               onChange={(e) =>
-                setFormData({ ...formData, DOB: e.target.value })
+                setFormData({ ...formData, dateOfBirth: e.target.value })
               }
             />
           </Form.Group>
@@ -34,9 +47,9 @@ const AccountSetting = () => {
             <Form.Label>Date of Joining</Form.Label>
             <Form.Control
               type="date"
-              value={formData.DOJ}
+              value={formData.dateOfJoining}
               onChange={(e) =>
-                setFormData({ ...formData, DOJ: e.target.value })
+                setFormData({ ...formData, dateOfJoining: e.target.value })
               }
             />
           </Form.Group>
