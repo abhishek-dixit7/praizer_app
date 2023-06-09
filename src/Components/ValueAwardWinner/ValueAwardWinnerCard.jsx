@@ -21,7 +21,10 @@ function ValueAwardWinnerCard() {
             headers={redeemAwardWinnerData.headers}
             data={redeemAwardWinnerData.data}
           /> */}
-          <AdvanceTable headers={userTableHeaders} data={tabelData} />
+          <AdvanceTable
+            headers={userTableHeaders}
+            data={tabelData != null ? tabelData : []}
+          />
         </Card.Body>
         <Card.Footer></Card.Footer>
       </Card>

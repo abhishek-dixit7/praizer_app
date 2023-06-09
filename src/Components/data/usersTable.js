@@ -16,7 +16,7 @@ export const userTableHeaders = [
     value: "Date Of Joining",
   },
   {
-    key: "dob",
+    key: "dateOfBirth",
     value: "Date Of Birth",
   },
 ];

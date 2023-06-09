@@ -20,6 +20,7 @@ export const LoginService = async (data) => {
         },
       }
     );
+    console.log("Token",response)
     // The JWT token is automatically handled by the interceptor, so you don't need to do anything extra here.
     console.log("Login successful!");
   } catch (error) {

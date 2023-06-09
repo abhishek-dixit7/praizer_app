@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import { GetUserDetailsByUid } from "../../../_services/UserService";
 
 const AccountSetting = () => {
   const [formData, setFormData] = useState({
     DOB: "1999-09-28",
     DOJ: "2023-05-12",
   });
+  const [userDetails, setUserDetails] = useState({});
+  useEffect(() => {
+    GetUserDetailsByUid("f7orWXSPVoTUltGxLpdhGpHGXcC3").then((res) =>
+      setUserDetails(res)
+    );
+    console.log("userDetails", userDetails);
+  }, []);
 
   return (
     <div style={{ flexBasis: "80%", textAlign: "start" }}>
