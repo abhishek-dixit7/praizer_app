@@ -6,7 +6,7 @@ import { auth } from "../../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const AccountSetting = () => {
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   const [formData, setFormData] = useState({
     dateOfBirth: "1999-09-17",
@@ -14,12 +14,14 @@ const AccountSetting = () => {
   });
 
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    if (user) {
+      fetchUserData(user.uid);
+    }
+  }, [user]);
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (uid) => {
     try {
-      const data = await GetUserDetailsByUid(user.uid);
+      const data = await GetUserDetailsByUid(uid);
       setFormData({
         ...formData,
         dateOfBirth: data.dateOfBirth,
