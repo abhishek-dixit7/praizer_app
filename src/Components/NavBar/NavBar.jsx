@@ -1,5 +1,5 @@
 import { React, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
 import { GiShoppingCart } from "react-icons/gi";
@@ -27,15 +27,18 @@ const NavBar = () => {
     <>
       <Navbar className="bg-dark justify-content-between">
         <Container className="justify-content-start">
-          <Navbar.Brand href="#" className="">
-            <img
-              src={brand_logo}
-              width="30"
-              height="30"
-              alt="Praizer Logo"
-              className="rounded-circle"
-            />
-          </Navbar.Brand>
+          <Link to="/home">
+            <Navbar.Brand>
+              <img
+                src={brand_logo}
+                width="30"
+                height="30"
+                alt="Praizer Logo"
+                className="rounded-circle"
+              />
+            </Navbar.Brand>
+          </Link>
+
           <Form className="d-flex ">
             <Form.Control
               type="search"
@@ -80,7 +83,7 @@ const NavBar = () => {
                 className="text-white mt-1 access__a-tag "
               >
                 <NavDropdown.Item>
-                  <NavLink className="dropdown-item" to="/accountsetting">
+                  <NavLink className="navbar-text" to="/accountsetting">
                     Account Setting
                   </NavLink>
                 </NavDropdown.Item>
@@ -100,8 +103,9 @@ const NavBar = () => {
               className="text-white mt-1 access__a-tag-help"
             >
               <NavDropdown.Item>
-                {" "}
-                <NavLink to="/contact">Contact Us</NavLink>
+                <NavLink className="navbar-text" to="/contact">
+                  Contact Us
+                </NavLink>
               </NavDropdown.Item>
             </NavDropdown>
           </Container>

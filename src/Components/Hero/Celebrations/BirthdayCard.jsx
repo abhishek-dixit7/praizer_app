@@ -2,22 +2,26 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import brand_logo from "../../../assets/brand_logo.jpg";
 
-const BirthdayCard = () => {
+const BirthdayCard = ({ img, name, dob, message }) => {
   return (
-    <Card className="flex-row">
-      <Card.Img src={brand_logo} className="w-25 h-25  rounded-full" />
+    <Card className="flex-row" style={{ padding: "0.35rem" }}>
+      <Card.Img
+        src={img}
+        className="w-25 h-25"
+        style={{ borderRadius: "50%" }}
+      />
       <Card.Body className="m-0 p-0">
         <Card.Text
           className="m-0"
           style={{ fontSize: "1rem", lineHeight: "1rem", fontWeight: "500" }}
         >
-          Name
+          {name}
         </Card.Text>
         <Card.Text
           className="text-muted m-0"
           style={{ fontSize: "0.8rem", lineHeight: "0.8rem" }}
         >
-          DOB
+          {dob}
         </Card.Text>
         <Card.Text
           className="m-0"
@@ -27,7 +31,7 @@ const BirthdayCard = () => {
             fontWeight: "400",
           }}
         >
-          Celebration Message
+          {message}
         </Card.Text>
       </Card.Body>
     </Card>

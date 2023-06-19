@@ -3,9 +3,12 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { fetchUsersData } from "../../../_services/UserService";
+
 const RecognizeSearchCard = () => {
   const search = useRef();
+
   const [userData, setUserData] = useState([]);
+
   function handleSearchBox() {
     console.log(search.current.value);
     const newData = userData.filter(function (item) {
@@ -21,9 +24,11 @@ const RecognizeSearchCard = () => {
     });
     console.log("Data at user", newData);
   }
+
   useEffect(() => {
     fetchUserData();
   }, []);
+
   const fetchUserData = async () => {
     try {
       const data = await fetchUsersData();
@@ -31,6 +36,7 @@ const RecognizeSearchCard = () => {
       setUserData(data);
     } catch (error) {}
   };
+
   return (
     <div className="mt-1 mx-1 text-start">
       <Card style={{ backgroundColor: "#B01C87", color: "white" }}>
