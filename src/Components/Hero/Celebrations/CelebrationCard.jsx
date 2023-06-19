@@ -42,6 +42,7 @@ export default function CelebrationCard() {
               name={item.firstName + " " + item.lastName}
               dob={DateFormater(item.dateOfBirth)}
               message={"Happy Birthday"}
+              key={item.id}
             />
           ))}
         </Card.Body>

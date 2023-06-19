@@ -41,6 +41,12 @@ const RecognizeSearchCard = () => {
             // isMulti //Use this to select multiple options
             isSearchable //makes the select bar searchable
             noOptionsMessage={() => "No such user found"}
+            styles={{
+              option: (base) => ({
+                ...base,
+                color: "black",
+              }),
+            }}
           />
         </Card.Body>
       </Card>
