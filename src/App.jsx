@@ -4,7 +4,6 @@ import RouteComponents from "./Components/routes";
 import React, { useEffect } from "react";
 import { NavBar, SubNavBar, Banner } from "./Components/NavBar";
 import ProfileCard from "./Components/Hero/ProfileCard";
-import { CardGroup } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./utils/firebase";
 
@@ -25,11 +24,11 @@ function App() {
         });
     };
 
-    window.addEventListener("beforeunload", handleAppClose);
+    // window.addEventListener("beforeunload", handleAppClose);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleAppClose);
-    };
+    // return () => {
+    //   window.removeEventListener("beforeunload", handleAppClose);
+    // };
   }, []);
 
   return (
@@ -44,10 +43,7 @@ function App() {
         <>
           <SubNavBar />
           <Banner />
-          <CardGroup>
-            <ProfileCard />
-            <RouteComponents />
-          </CardGroup>
+          <RouteComponents />
         </>
       )}
     </div>

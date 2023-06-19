@@ -10,18 +10,78 @@ import NotFound from "../Others/NotFound";
 import MyTeam from "../MyTeam";
 import Contact from "../Others/Contact";
 import AccountSetting from "../Hero/ProfileCard/AccountSetting";
+import ProfileCardContainer from "../Hero/ProfileCard/ProfileCardContainer";
 function RouteComponents() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} exact />
-      <Route path="/home" element={<Dashboard />} />
-      <Route path="/faqs" element={<FAQs />} exact />
-      <Route path="/celebrations" element={<Celebrations />} exact />
+      <Route
+        path="/"
+        element={
+          <ProfileCardContainer>
+            <Dashboard />
+          </ProfileCardContainer>
+        }
+        exact
+      />
+      <Route
+        path="/home"
+        element={
+          <ProfileCardContainer>
+            <Dashboard />
+          </ProfileCardContainer>
+        }
+      />
+      <Route
+        path="/faqs"
+        element={
+          <ProfileCardContainer>
+            <FAQs />
+          </ProfileCardContainer>
+        }
+        exact
+      />
+      <Route
+        path="/celebrations"
+        element={
+          <ProfileCardContainer>
+            <Celebrations />
+          </ProfileCardContainer>
+        }
+        exact
+      />
       <Route path="/DownloadMobile" Component={DownloadMobile} />
-      <Route path="/Valueawardwinner" element={<ValueAwardWinner />} />
-      <Route path="/redeempoint" element={<RedeemPoints />} />
-      <Route path="/myteam" element={<MyTeam />} />
-      <Route path="/contact" element={<Contact />} />
+      <Route
+        path="/Valueawardwinner"
+        element={
+          <ProfileCardContainer>
+            <ValueAwardWinner />
+          </ProfileCardContainer>
+        }
+      />
+      <Route
+        path="/redeempoint"
+        element={
+          <ProfileCardContainer>
+            <RedeemPoints />
+          </ProfileCardContainer>
+        }
+      />
+      <Route
+        path="/myteam"
+        element={
+          <ProfileCardContainer>
+            <MyTeam />
+          </ProfileCardContainer>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <ProfileCardContainer>
+            <Contact />
+          </ProfileCardContainer>
+        }
+      />
       <Route path="/accountsetting" element={<AccountSetting />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
