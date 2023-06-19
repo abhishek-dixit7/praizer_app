@@ -1,29 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { fetchUsersData } from "../../../_services/UserService";
+import Select from "react-select";
 
 const RecognizeSearchCard = () => {
-  const search = useRef();
-
+  const [selected, setSelected] = useState();
   const [userData, setUserData] = useState([]);
-
-  function handleSearchBox() {
-    console.log(search.current.value);
-    const newData = userData.filter(function (item) {
-      return (
-        item.firstName
-          .toLowerCase()
-          .includes(search.current.value.toLowerCase()) ||
-        item.lastName
-          .toLowerCase()
-          .includes(search.current.value.toLowerCase()) ||
-        item.email.toLowerCase().includes(search.current.value.toLowerCase())
-      );
-    });
-    console.log("Data at user", newData);
-  }
 
   useEffect(() => {
     fetchUserData();
@@ -32,21 +15,32 @@ const RecognizeSearchCard = () => {
   const fetchUserData = async () => {
     try {
       const data = await fetchUsersData();
-      console.log(data);
-      setUserData(data);
+      const opt = data.map((item) => {
+        return {
+          label: `${item.firstName} ${item.lastName} ${item.email}`,
+          value: item?.uid,
+        };
+      });
+      setUserData(opt);
     } catch (error) {}
   };
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
 
   return (
     <div className="mt-1 mx-1 text-start">
       <Card style={{ backgroundColor: "#B01C87", color: "white" }}>
         <Card.Header as={"h5"}>Recognize</Card.Header>
         <Card.Body style={{ position: "relative" }}>
-          <Form.Control
-            type="text"
-            ref={search}
-            placeholder="Search with Name or Email"
-            onChange={handleSearchBox}
+          <Select
+            options={userData}
+            placeholder="Enter name or email"
+            value={selected}
+            onChange={setSelected}
+            // isMulti //Use this to select multiple options
+            isSearchable //makes the select bar searchable
+            noOptionsMessage={() => "No such user found"}
           />
         </Card.Body>
       </Card>

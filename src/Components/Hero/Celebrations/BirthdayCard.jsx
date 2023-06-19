@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import brand_logo from "../../../assets/brand_logo.jpg";
+// import brand_logo from "../../../assets/brand_logo.jpg";
 
 const BirthdayCard = ({ img, name, dob, message }) => {
   return (
