@@ -79,9 +79,11 @@ const NavBar = () => {
                 id="basic-nav-dropdown"
                 className="text-white mt-1 access__a-tag "
               >
-                <NavLink className="dropdown-item" to="/accountsetting">
-                  Account Setting
-                </NavLink>
+                <NavDropdown.Item>
+                  <NavLink className="dropdown-item" to="/accountsetting">
+                    Account Setting
+                  </NavLink>
+                </NavDropdown.Item>
 
                 <Navbar.Text
                   className="dropdown-item"
@@ -97,7 +99,10 @@ const NavBar = () => {
               id="basic-nav-dropdown"
               className="text-white mt-1 access__a-tag-help"
             >
-              <NavDropdown.Item href="/contact">Contact Us</NavDropdown.Item>
+              <NavDropdown.Item>
+                {" "}
+                <NavLink to="/contact">Contact Us</NavLink>
+              </NavDropdown.Item>
             </NavDropdown>
           </Container>
         </Container>
