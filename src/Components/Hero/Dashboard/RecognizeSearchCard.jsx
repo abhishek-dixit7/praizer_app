@@ -3,11 +3,15 @@ import { useState } from "react";
 import { Card } from "react-bootstrap";
 import { fetchUsersData } from "../../../_services/UserService";
 import Select from "react-select";
-
+import { useNavigate } from "react-router-dom";
 const RecognizeSearchCard = () => {
+  // eslint-disable-next-line no-unused-vars
   const [selected, setSelected] = useState();
   const [userData, setUserData] = useState([]);
-
+  const navigate = useNavigate();
+  const navigateHandler = (e) => {
+    navigate("/praise", { state: { id: e[0].value } });
+  };
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -24,9 +28,6 @@ const RecognizeSearchCard = () => {
       setUserData(opt);
     } catch (error) {}
   };
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
 
   return (
     <div className="mt-1 mx-1 text-start">
@@ -37,8 +38,8 @@ const RecognizeSearchCard = () => {
             options={userData}
             placeholder="Enter name or email"
             value={selected}
-            onChange={setSelected}
-             isMulti //Use this to select multiple options
+            onChange={(e) => navigateHandler(e)}
+            isMulti //Use this to select multiple options
             isSearchable //makes the select bar searchable
             noOptionsMessage={() => "No such user found"}
             styles={{

@@ -11,6 +11,7 @@ import MyTeam from "../MyTeam";
 import Contact from "../Others/Contact";
 import AccountSetting from "../Hero/ProfileCard/AccountSetting";
 import ProfileCardContainer from "../Hero/ProfileCard/ProfileCardContainer";
+import Praise from "../Hero/PraiseCard/index";
 function RouteComponents() {
   return (
     <Routes>
@@ -79,6 +80,14 @@ function RouteComponents() {
         element={
           <ProfileCardContainer>
             <Contact />
+          </ProfileCardContainer>
+        }
+      />
+      <Route
+        path="/praise"
+        element={
+          <ProfileCardContainer>
+            <Praise />
           </ProfileCardContainer>
         }
       />
