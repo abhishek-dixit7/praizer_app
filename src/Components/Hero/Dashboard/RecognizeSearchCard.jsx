@@ -38,7 +38,7 @@ const RecognizeSearchCard = () => {
             placeholder="Enter name or email"
             value={selected}
             onChange={setSelected}
-            // isMulti //Use this to select multiple options
+             isMulti //Use this to select multiple options
             isSearchable //makes the select bar searchable
             noOptionsMessage={() => "No such user found"}
             styles={{

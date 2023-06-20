@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import RouteComponents from "./Components/routes";
 import React, { useEffect } from "react";
 import { NavBar, SubNavBar, Banner } from "./Components/NavBar";
-import ProfileCard from "./Components/Hero/ProfileCard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./utils/firebase";
 
@@ -12,6 +11,7 @@ function App() {
 
   //Auto Logout on window close
   useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
     const handleAppClose = () => {
       auth
         .signOut()
