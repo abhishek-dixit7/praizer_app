@@ -8,7 +8,13 @@ import { NavLink } from "react-router-dom";
 export default function SubNavBar() {
   return (
     <div>
-      <Navbar className="bg-light ">
+      <Navbar
+        style={{
+          backgroundColor: "#B01C87",
+          color: "white",
+          borderRadius: "0.275rem",
+        }}
+      >
         <Container>
           {routes.children.map((route) => {
             return (

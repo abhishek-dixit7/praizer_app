@@ -25,7 +25,10 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar className="bg-dark justify-content-between">
+      <Navbar
+        className="bg-dark justify-content-between"
+        style={{ borderRadius: "0.275rem" }}
+      >
         <Container className="justify-content-start">
           <Link to="/home">
             <Navbar.Brand>
