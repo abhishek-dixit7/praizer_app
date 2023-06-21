@@ -52,10 +52,10 @@ const NavBar = () => {
           </Form>
         </Container>
         <Container className="justify-content-end ml-5">
-          <Container className="d-flex justify-content-around align-item-center text-center">
-            <a href="/">
-              <GiShoppingCart className="d-inline-block align-top navbar__icons" />
-            </a>
+          <Container
+            className="d-flex align-item-center text-center"
+            style={{ justifyContent: "flex-end", gap: "2re" }}
+          >
             <a href="/">
               <IoMdNotifications className="d-inline-block align-top navbar__icons" />
             </a>

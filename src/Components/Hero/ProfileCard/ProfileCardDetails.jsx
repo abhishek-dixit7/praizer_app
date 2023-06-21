@@ -12,30 +12,47 @@ export default function ProfileCardDetails() {
 
   return (
     <div style={{ flexBasis: "20%" }}>
-      <Card className="bg-secondary text-white hero-cards align-items-center">
-        <Card.Img
-          src={user ? user.photoURL : brand_logo}
-          alt="Profile Photo"
-          className="w-50 rounded-circle mt-4"
-        />
-        <Card.Title className="mt-4">
+      <Card className="bg-light hero-cards align-items-center">
+        <Card.Title
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1rem",
+          }}
+        >
+          <Card.Img
+            src={user ? user.photoURL : brand_logo}
+            alt="Profile Photo"
+            style={{
+              marginTop: "1rem",
+              border: " 8px solid #b01c86b5",
+            }}
+          />
+
           {user ? user.displayName : "Profile Name"}
         </Card.Title>
-        <Card.Body>
-          <Card className="bg-light text-black">
-            <h3>300</h3>
-            <h5>Points Balance</h5>
-            <hr />
-            <h5>Points to Award</h5>
-            <h3>300</h3>
-          </Card>
+        <div style={{ color: "#B01C87" }}>
+          <div style={{ fontWeight: "500", fontSize: "2rem" }}>300</div>
+          Points Balance
+        </div>
+        <Card.Body className="pta-card">
+          <div>Points to Award</div>
+          300
         </Card.Body>
         <Card.Footer
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            minWidth: "100%",
+          }}
+          className="bg-secondary text-white"
           as={NavLink}
           to="/myteam"
-          className=" bg-secondary text-white"
         >
-          <BsInfoCircleFill className="mx-2" />
+          <BsInfoCircleFill />
           <span>My team</span>
         </Card.Footer>
       </Card>

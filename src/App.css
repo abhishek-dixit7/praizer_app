@@ -128,3 +128,25 @@ a {
   font-weight: bold;
   border-radius: 1rem;
 }
+
+.pta-card {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.364);
+  border-radius: 0.25rem;
+  margin: 1rem;
+  min-width: 80%;
+  position: relative;
+  font-size: 2rem;
+  color: #b01c87 !important;
+  font-weight: 500;
+}
+
+.pta-card div {
+  top: 0;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.364);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #666;
+}
