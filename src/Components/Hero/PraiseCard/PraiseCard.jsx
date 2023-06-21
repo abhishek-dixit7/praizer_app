@@ -6,6 +6,7 @@ import {
 } from "../../../_services/UserService";
 import Select from "react-select";
 import { recogniseValues } from "../../data/constants";
+import FormPreview from "./FormPreview";
 import LoadingSpinner from "../../subComponents/LoadingSpinner";
 
 function PraiseCard(props) {
@@ -13,6 +14,11 @@ function PraiseCard(props) {
   // eslint-disable-next-line no-unused-vars
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
+
+  const togglePreview = () => {
+    setShowPreview(!showPreview);
+  };
 
   const options = Object.entries(recogniseValues).map(([value, label]) => ({
     value,
@@ -102,6 +108,35 @@ function PraiseCard(props) {
                 }}
               />
             </Form.Group>
+
+            <div
+              style={{
+                marginInline: "1rem",
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "1rem",
+              }}
+            >
+              <button
+                type="button"
+                onClick={togglePreview}
+                className="pink-button"
+              >
+                Preview
+              </button>
+
+              {showPreview && (
+                <FormPreview formData={userData} onClose={togglePreview} />
+              )}
+
+              <button
+                type="submit"
+                onClick={togglePreview}
+                className="pink-button"
+              >
+                Post
+              </button>
+            </div>
           </Form>
         </Card.Body>
         <Card.Footer></Card.Footer>
