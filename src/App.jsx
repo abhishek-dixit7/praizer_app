@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { NavBar, SubNavBar, Banner } from "./Components/NavBar";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./utils/firebase";
+import LoadingSpinner from "./Components/subComponents/LoadingSpinner";
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -35,7 +36,9 @@ function App() {
     <div className="App mx-auto">
       <NavBar />
       {loading ? (
-        <div className="fs-1 mt-5">Loading...</div>
+        <div className="fs-1 mt-5">
+          <LoadingSpinner />
+        </div>
       ) : (
         !user && <div className="fs-1 mt-5">Please Login</div>
       )}

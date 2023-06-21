@@ -6,9 +6,11 @@ import {
 } from "../../../_services/UserService";
 import Select from "react-select";
 import { recogniseValues } from "../../data/constants";
+import LoadingSpinner from "../../subComponents/LoadingSpinner";
 
 function PraiseCard(props) {
   const [userData, setUserData] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,10 +33,15 @@ function PraiseCard(props) {
 
   useEffect(() => {
     FetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mt-5">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return (
