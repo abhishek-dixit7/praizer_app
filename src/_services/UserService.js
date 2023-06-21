@@ -12,7 +12,7 @@ export const fetchUsersData = async () => {
     const response = await api.get("/Users/getUserDetails");
     const userData = response.data;
 
-    console.log("User data:", userData);
+    // console.log("User data:", userData);
     return userData;
   } catch (error) {
     console.error("Failed to fetch user data:", error);

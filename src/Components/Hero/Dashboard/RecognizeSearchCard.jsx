@@ -4,14 +4,18 @@ import { Card } from "react-bootstrap";
 import { fetchUsersData } from "../../../_services/UserService";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+
 const RecognizeSearchCard = () => {
   // eslint-disable-next-line no-unused-vars
   const [selected, setSelected] = useState();
   const [userData, setUserData] = useState([]);
+
   const navigate = useNavigate();
+
   const navigateHandler = (e) => {
     navigate("/praise", { state: { id: e[0].value } });
   };
+
   useEffect(() => {
     fetchUserData();
   }, []);
