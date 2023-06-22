@@ -8,7 +8,7 @@ function Praise() {
   return (
     <>
       <div style={{ flexBasis: "60%" }}>
-        <PraiseCard uid={location.state.id} />
+        <PraiseCard uid={location?.state?.id} />
       </div>
       <Celebrations value="1" />
     </>

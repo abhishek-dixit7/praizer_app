@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { GetUserDetailsByUid } from "../../../_services/UserService";
 
 function ProfileModal(props) {

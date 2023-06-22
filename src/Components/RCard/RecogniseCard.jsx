@@ -69,7 +69,7 @@ function RecogniseCard({ uid }) {
           {title ? <ProfileModal handleModal={showTitle} uid={uid} /> : null}
         </Card.Body>
         <Card.Footer className="100vh">
-          <LikeButton />
+          <LikeButton disabled={false} />
         </Card.Footer>
       </Card>
       <br />

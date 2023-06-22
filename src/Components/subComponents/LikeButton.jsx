@@ -4,7 +4,7 @@ import { TiHeartFullOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 import { Context } from "../../Context/Context";
 
-function LikeButton() {
+function LikeButton({ disabled }) {
   const [like, setLike] = useState("Like");
   const { showToast } = useContext(Context);
 
@@ -15,7 +15,7 @@ function LikeButton() {
   };
   return (
     <div>
-      <Button variant="light" onClick={handleButton}>
+      <Button variant="light" onClick={handleButton} disabled={disabled}>
         {like}
         {like === "Like" ? <TiHeartFullOutline /> : <TiHeartOutline />}
       </Button>
