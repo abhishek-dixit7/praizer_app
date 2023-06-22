@@ -27,7 +27,11 @@ function RecogniseCard({ uid }) {
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
         <Card.Header as={NavLink} onClick={showTitle}>
-          Header{" "}
+          <Card.Img
+            src={details?.photoUrl}
+            className="w-25 h-25"
+            style={{ borderRadius: "10%" }}
+          />
         </Card.Header>
         <Card.Img src="" />
         <Card.Body>
@@ -37,13 +41,7 @@ function RecogniseCard({ uid }) {
           <NavLink variant="light" onClick={showTitle}>
             <p> {details?.firstName}</p>
           </NavLink>
-          {title ? (
-            <ProfileModal
-              handleModal={showTitle}
-              name={"Jasmine Fernandez"}
-              url="https://www.fernand.com"
-            />
-          ) : null}
+          {title ? <ProfileModal handleModal={showTitle} uid={uid} /> : null}
         </Card.Body>
         <Card.Footer className="100vh">
           <LikeButton />

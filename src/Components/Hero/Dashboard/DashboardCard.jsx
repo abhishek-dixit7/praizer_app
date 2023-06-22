@@ -16,6 +16,7 @@ function DashboardCard() {
       //console.log("Fetch method call", fetchUsersData());
       const data = await fetchUsersData();
       setUsersData(() => data);
+      console.log(usersData);
     } catch (error) {}
   };
   return (
