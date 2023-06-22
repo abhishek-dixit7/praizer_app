@@ -10,7 +10,7 @@ export default function SubNavBar() {
     <div>
       <Navbar
         style={{
-          backgroundColor: "#B01C87",
+          backgroundColor: "var(--clr-primary-400)",
           color: "white",
           borderRadius: "0.275rem",
         }}

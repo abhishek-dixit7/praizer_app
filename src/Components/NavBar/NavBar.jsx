@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
@@ -7,16 +7,19 @@ import { IoMdNotifications } from "react-icons/io";
 import { auth } from "../../utils/firebase";
 import brand_logo from "../../assets/brand_logo.jpg";
 import { GoogleLogin, LoginService } from "../../_services/LoginService";
+import { Context } from "../../Context/Context";
 
 const NavBar = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [user, loading] = useAuthState(auth);
+  const { showToast } = useContext(Context);
 
   useEffect(() => {
     if (user) {
       LoginService(user.accessToken);
       navigate("/");
+      showToast("Logged In Successfully!", "success");
     } else {
       console.log("please login");
     }
@@ -54,7 +57,7 @@ const NavBar = () => {
         <Container className="justify-content-end ml-5">
           <Container
             className="d-flex align-item-center text-center"
-            style={{ justifyContent: "flex-end", gap: "2re" }}
+            style={{ justifyContent: "flex-end", gap: "2rem" }}
           >
             <a href="/">
               <IoMdNotifications className="d-inline-block align-top navbar__icons" />
@@ -85,16 +88,25 @@ const NavBar = () => {
                 id="basic-nav-dropdown"
                 className="text-white mt-1 access__a-tag "
               >
-                <NavDropdown.Item>
-                  <NavLink className="navbar-text" to="/accountsetting">
-                    Account Setting
-                  </NavLink>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/accountsetting"
+                  className="navbar-text"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#fff" : "#545e6f",
+                    background: isActive ? "#fff" : "#f0f0f0",
+                  })}
+                >
+                  Account Setting
                 </NavDropdown.Item>
 
                 <Navbar.Text
                   className="dropdown-item"
                   style={{ cursor: "pointer" }}
-                  onClick={() => auth.signOut()}
+                  onClick={() => {
+                    auth.signOut();
+                    showToast("Sorry to let you go!", "error");
+                  }}
                 >
                   Logout
                 </Navbar.Text>

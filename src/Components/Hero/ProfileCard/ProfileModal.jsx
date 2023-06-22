@@ -27,24 +27,37 @@ function ProfileModal(props) {
         <Card.Header as={"h5"}>
           <Card.Img
             src={details?.photoUrl}
-            className="w-25 h-25"
-            style={{ borderRadius: "50%" }}
+            style={{
+              borderRadius: "2rem",
+              maxWidth: "70%",
+              boxShadow:
+                "rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px",
+            }}
           />
         </Card.Header>
 
-        <Card.Body>
-          <Row>
-            <Col>First Name: {details?.firstName}</Col>
-            <Col>Last Name: {details?.lastName}</Col>
-          </Row>
-          <Row>
-            <Col>Email: {details?.email}</Col>
-            <Col>Date of Birth: {details?.dateOfBirth}</Col>
-          </Row>
-          <Row>
-            <Col>Date of Joining: {details?.dateOfJoining}</Col>
-            <Col>Reporting Manager/RM: {details?.manager}</Col>
-          </Row>
+        <Card.Body
+          style={{ fontSize: "1rem", textAlign: "start" }}
+          className="profileModal"
+        >
+          <div>
+            First Name: <span>{details?.firstName}</span>
+          </div>
+          <div>
+            Last Name: <span>{details?.lastName}</span>
+          </div>
+          <div>
+            Email: <span>{details?.email}</span>
+          </div>
+          <div>
+            Date of Birth: <span>{details?.dateOfBirth}</span>
+          </div>
+          <div>
+            Date of Joining: <span>{details?.dateOfJoining}</span>
+          </div>
+          <div>
+            Reporting Manager/RM: <span>{details?.manager}</span>
+          </div>
         </Card.Body>
         <Card.Footer>
           <button className="close-button pink-button" onClick={handleShow}>

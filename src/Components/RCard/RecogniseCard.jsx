@@ -26,12 +26,37 @@ function RecogniseCard({ uid }) {
   return (
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
-        <Card.Header as={NavLink} onClick={showTitle}>
+        <Card.Header
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingInline: "1.5rem",
+            position: "relative",
+          }}
+        >
           <Card.Img
             src={details?.photoUrl}
-            className="w-25 h-25"
-            style={{ borderRadius: "10%" }}
+            onClick={showTitle}
+            style={{
+              borderRadius: "10%",
+              maxWidth: "5rem",
+              position: "absolute",
+              boxShadow:
+                " rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+              top: "30%",
+              left: "4%",
+            }}
           />
+          <span
+            style={{
+              fontSize: "2rem",
+              fontWeight: "500",
+              color: "var(--clr-primary-400)",
+            }}
+          >
+            Hunger
+          </span>
         </Card.Header>
         <Card.Img src="" />
         <Card.Body>

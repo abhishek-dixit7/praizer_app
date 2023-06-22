@@ -33,7 +33,7 @@ export default function ProfileCardDetails() {
 
           {user ? user.displayName : "Profile Name"}
         </Card.Title>
-        <div style={{ color: "#B01C87" }}>
+        <div style={{ color: "var(--clr-primary-400)" }}>
           <div style={{ fontWeight: "500", fontSize: "2rem" }}>300</div>
           Points Balance
         </div>

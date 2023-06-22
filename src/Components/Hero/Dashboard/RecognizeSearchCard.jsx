@@ -35,7 +35,9 @@ const RecognizeSearchCard = () => {
 
   return (
     <div className="mt-1 mx-1 text-start">
-      <Card style={{ backgroundColor: "#B01C87", color: "white" }}>
+      <Card
+        style={{ backgroundColor: "var(--clr-primary-400)", color: "white" }}
+      >
         <Card.Header as={"h5"}>Recognize</Card.Header>
         <Card.Body style={{ position: "relative" }}>
           <Select

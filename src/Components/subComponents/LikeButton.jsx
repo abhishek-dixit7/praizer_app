@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
-import { toast } from "react-toastify";
+import { Context } from "../../Context/Context";
+
 function LikeButton() {
   const [like, setLike] = useState("Like");
+  const { showToast } = useContext(Context);
+
   const handleButton = () => {
     setLike(like === "Like" ? "Unlike" : "Like");
-    toast.success("You liked it!!");
+    if (like === "Like") showToast("Post Liked!!", "success");
+    else showToast("Post Unliked!!", "error");
   };
   return (
     <div>

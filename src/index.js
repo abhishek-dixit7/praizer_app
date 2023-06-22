@@ -4,12 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastProvider } from "./Context/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ToastProvider>
+        <ToastContainer />
+        <App />
+      </ToastProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

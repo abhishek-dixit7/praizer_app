@@ -57,8 +57,14 @@ function PraiseCard(props) {
         <Card.Body>
           <Form style={{ display: "grid", gap: "1rem" }}>
             <Form.Group>
-              <Form.Label style={{ fontSize: "1.5rem", fontWeight: "400" }}>
-                Praizing:
+              <Form.Label
+                style={{
+                  fontSize: "2rem",
+                  fontWeight: "500",
+                  marginBlock: "1rem",
+                }}
+              >
+                Praizing
               </Form.Label>
               <Form.Control
                 type="input"
@@ -110,6 +116,19 @@ function PraiseCard(props) {
               />
             </Form.Group>
 
+            <Form.Group>
+              <Form.Label
+                style={{
+                  fontSize: "2rem",
+                  fontWeight: "500",
+                  marginBlock: "1rem",
+                }}
+              >
+                Reward Points
+              </Form.Label>
+              <Slider maxValue={300} />
+            </Form.Group>
+
             <div
               style={{
                 marginInline: "1rem",
@@ -145,5 +164,36 @@ function PraiseCard(props) {
     </div>
   );
 }
+
+const Slider = ({ maxValue }) => {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event) => {
+    setValue(parseInt(event.target.value, 10));
+  };
+
+  const sliderStyle = {
+    minWidth: "100%",
+    height: "8px",
+    borderRadius: "4px",
+    appearance: "none",
+    outline: "none",
+    background: "var(--clr-primary-400)",
+  };
+
+  return (
+    <div>
+      <input
+        style={sliderStyle}
+        type="range"
+        min={0}
+        max={maxValue}
+        value={value}
+        onChange={handleChange}
+      />
+      <span>{value}</span>
+    </div>
+  );
+};
 
 export default PraiseCard;
