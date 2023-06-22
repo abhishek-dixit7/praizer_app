@@ -65,6 +65,7 @@ function PraiseCard(props) {
                 defaultValue={
                   userData && userData?.firstName + " " + userData?.lastName
                 }
+                disabled
               />
             </Form.Group>
 
