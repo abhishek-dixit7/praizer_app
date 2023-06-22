@@ -1,38 +1,42 @@
-import React, { useState } from "react";
-import { Card, Button, Row, Col } from "react-bootstrap";
-import { recogniseValues } from "../data/constants";
+import React, { useState, useEffect } from "react";
+import { Card } from "react-bootstrap";
+//import { recogniseValues } from "../data/constants";
 import LikeButton from "../subComponents/LikeButton";
 import ProfileModal from "../Hero/ProfileCard/ProfileModal";
-function RecogniseCard(props) {
-  const reValues = recogniseValues;
-  const params = { ...props.values };
+import { NavLink } from "react-router-dom";
+import { GetUserDetailsByUid } from "../../_services/UserService";
+function RecogniseCard({ uid }) {
   const [title, setTitle] = useState(false);
+  const [details, setDetails] = useState();
   const showTitle = () => {
     setTitle(!title);
   };
+  const FetchUserData = async () => {
+    try {
+      var data = await GetUserDetailsByUid(uid);
+      setDetails(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    FetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
+        <Card.Header as={NavLink} onClick={showTitle}>
+          Header{" "}
+        </Card.Header>
         <Card.Img src="" />
-        <Card.Title>
-          <Row>
-            <Col lg="2">
-              <Button variant="light" onClick={showTitle}>
-                Title
-              </Button>
-            </Col>
-          </Row>
-        </Card.Title>
         <Card.Body>
-          <span>Praised for {reValues[params.name]}</span>
-          <p>{params.comment}</p>
-          <p>Tom Holland</p>
-          <span>
-            Praised by
-            <Button variant="light" onClick={showTitle}>
-              {params.from}
-            </Button>
-          </span>
+          <span>Praised for </span>
+          <p></p>
+          Praised by
+          <NavLink variant="light" onClick={showTitle}>
+            <p> {details?.firstName}</p>
+          </NavLink>
           {title ? (
             <ProfileModal
               handleModal={showTitle}

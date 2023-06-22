@@ -46,7 +46,6 @@ export default function CelebrationCard() {
             />
           ))}
         </Card.Body>
-        <Card.Footer></Card.Footer>
       </Card>
     </div>
   );

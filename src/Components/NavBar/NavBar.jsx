@@ -2,7 +2,7 @@ import { React, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
-import { GiShoppingCart } from "react-icons/gi";
+//import { GiShoppingCart } from "react-icons/gi";
 import { IoMdNotifications } from "react-icons/io";
 import { auth } from "../../utils/firebase";
 import brand_logo from "../../assets/brand_logo.jpg";

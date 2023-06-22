@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 function ProfileModal(props) {
   // eslint-disable-next-line no-unused-vars
@@ -8,24 +8,20 @@ function ProfileModal(props) {
     props.handleModal();
   };
   return (
-    <div>
-      <Modal show={!show} onHide={handleShow}>
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <span>
-            Name: {props.name} with url: {props.url}
-          </span>
-          <p>
-            This is the profile Modal. Here we will put the details of the
-            profile
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="dark" onClick={handleShow}>
+    <div className="form-preview-overlay">
+      <Card>
+        <Card.Header as={"h5"}>User Profile</Card.Header>
+        <Card.Body>
+          <p>Name: {props?.name}</p>
+          <p>Email: {props?.email}</p>
+          <p>Phone: {props?.phone}</p>
+        </Card.Body>
+        <Card.Footer>
+          <button className="close-button pink-button" onClick={handleShow}>
             Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </button>
+        </Card.Footer>
+      </Card>
     </div>
   );
 }

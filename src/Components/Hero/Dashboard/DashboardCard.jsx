@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import RecogniseCard from "../../RCard/RecogniseCard";
-import { sampleCardValues } from "../../data/constants";
+// import { sampleCardValues } from "../../data/constants";
 import GenericCard from "../../GenericCard/GenericCard";
+import { fetchUsersData } from "../../../_services/UserService";
 function DashboardCard() {
+  const [usersData, setUsersData] = useState();
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      //console.log("Fetch method call", fetchUsersData());
+      const data = await fetchUsersData();
+      setUsersData(() => data);
+    } catch (error) {}
+  };
   return (
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
         <Card.Header as={"h5"}>Dashboard</Card.Header>
         <Card.Body>
           <GenericCard />
-          <RecogniseCard values={sampleCardValues} />
+          {usersData != null &&
+            usersData.map((item) => {
+              return <RecogniseCard key={item.id} uid={item?.uid} />;
+            })}
         </Card.Body>
         <Card.Footer></Card.Footer>
       </Card>
