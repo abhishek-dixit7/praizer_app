@@ -6,15 +6,51 @@ import {
 } from "../../../_services/UserService";
 import Select from "react-select";
 import { recogniseValues } from "../../data/constants";
-import FormPreview from "./FormPreview";
+
 import LoadingSpinner from "../../subComponents/LoadingSpinner";
+import RecognizePreview from "./RecognisePreview";
 
 function PraiseCard(props) {
   const [userData, setUserData] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
+
+  //Form Handles
+  const [formData, setFormData] = useState({
+    userName: "",
+    photoUrl: "",
+    uid: "",
+    praizeText: "",
+    recognition: "",
+    rewardPoints: 0,
+  });
+
+  // Handle form submit
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Do something with the form data
+    console.log(formData);
+  };
+
+  // Handle input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (selectedOption) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      recognition: selectedOption,
+    }));
+  };
+
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
   const togglePreview = () => {
     setShowPreview(!showPreview);
@@ -28,10 +64,14 @@ function PraiseCard(props) {
   const FetchUserData = async () => {
     try {
       var data = await GetUserDetailsByUid(props.uid);
-      var datas = await fetchUsersData();
-      setUsersData(datas);
       setUserData(data);
-      setLoading(false); // Set loading to false when data is retrieved
+      setLoading(false);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        userName: `${data.firstName} ${data.lastName}`,
+        uid: data.uid,
+        photoUrl: data.photoUrl,
+      })); // Set loading to false when data is retrieved
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +95,10 @@ function PraiseCard(props) {
       <Card className="hero-cards text-start">
         <Card.Header as={"h5"}>Praise</Card.Header>
         <Card.Body>
-          <Form style={{ display: "grid", gap: "1rem" }}>
+          <Form
+            style={{ display: "grid", gap: "1rem" }}
+            onSubmit={handleSubmit}
+          >
             <Form.Group>
               <Form.Label
                 style={{
@@ -68,9 +111,9 @@ function PraiseCard(props) {
               </Form.Label>
               <Form.Control
                 type="input"
-                defaultValue={
-                  userData && userData?.firstName + " " + userData?.lastName
-                }
+                value={formData?.userName}
+                name="userName"
+                onChange={handleChange}
                 disabled
               />
             </Form.Group>
@@ -86,6 +129,9 @@ function PraiseCard(props) {
                   boxShadow:
                     "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                 }}
+                value={formData?.praizeText}
+                onChange={handleChange}
+                name="praizeText"
               />
             </Form.Group>
 
@@ -113,6 +159,8 @@ function PraiseCard(props) {
                     color: "black",
                   }),
                 }}
+                value={formData?.recognition}
+                onChange={handleSelectChange}
               />
             </Form.Group>
 
@@ -126,7 +174,30 @@ function PraiseCard(props) {
               >
                 Reward Points
               </Form.Label>
-              <Slider maxValue={300} />
+              <div>
+                <input
+                  style={{
+                    minWidth: "100%",
+                    height: "8px",
+                    borderRadius: "4px",
+                    appearance: "none",
+                    outline: "none",
+                    background: "var(--clr-primary-400)",
+                  }}
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={formData?.rewardPoints}
+                  onChange={handleChange}
+                  name="rewardPoints"
+                />
+                <span>{formData?.rewardPoints}</span>
+              </div>
+              {/* <Slider
+                maxValue={300}
+                value={formData.rewardPoints}
+                onChange={handleChange}
+              /> */}
             </Form.Group>
 
             <div
@@ -146,14 +217,10 @@ function PraiseCard(props) {
               </button>
 
               {showPreview && (
-                <FormPreview formData={userData} onClose={togglePreview} />
+                <RecognizePreview formData={formData} onClose={togglePreview} />
               )}
 
-              <button
-                type="submit"
-                onClick={togglePreview}
-                className="pink-button"
-              >
+              <button type="submit" className="pink-button">
                 Post
               </button>
             </div>
@@ -164,36 +231,5 @@ function PraiseCard(props) {
     </div>
   );
 }
-
-const Slider = ({ maxValue }) => {
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event) => {
-    setValue(parseInt(event.target.value, 10));
-  };
-
-  const sliderStyle = {
-    minWidth: "100%",
-    height: "8px",
-    borderRadius: "4px",
-    appearance: "none",
-    outline: "none",
-    background: "var(--clr-primary-400)",
-  };
-
-  return (
-    <div>
-      <input
-        style={sliderStyle}
-        type="range"
-        min={0}
-        max={maxValue}
-        value={value}
-        onChange={handleChange}
-      />
-      <span>{value}</span>
-    </div>
-  );
-};
 
 export default PraiseCard;

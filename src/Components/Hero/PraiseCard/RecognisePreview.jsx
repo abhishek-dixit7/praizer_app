@@ -1,15 +1,13 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import { RecogniseSkeleton } from "../../RCard/RecogniseCard";
 
-const FormPreview = ({ formData, onClose }) => {
+const RecognizePreview = ({ formData, onClose }) => {
   return (
     <div className="form-preview-overlay">
-      <Card>
-        <Card.Header as={"h5"}>Form Preview</Card.Header>
+      <Card style={{ minWidth: "60%", textAlign: "center" }}>
         <Card.Body>
-          <p>Name: {formData.name}</p>
-          <p>Email: {formData.email}</p>
-          <p>Phone: {formData.phone}</p>
+          <RecogniseSkeleton details={formData} likeDisabled={true} />
         </Card.Body>
         <Card.Footer>
           <button className="close-button pink-button" onClick={onClose}>
@@ -21,4 +19,4 @@ const FormPreview = ({ formData, onClose }) => {
   );
 };
 
-export default FormPreview;
+export default RecognizePreview;

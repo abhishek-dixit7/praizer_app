@@ -24,6 +24,22 @@ function RecogniseCard({ uid }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
+    <RecogniseSkeleton
+      details={details}
+      showTitle={showTitle}
+      title={title}
+      likeDisabled={false}
+    />
+  );
+}
+
+export const RecogniseSkeleton = ({
+  details,
+  showTitle,
+  title,
+  likeDisabled,
+}) => {
+  return (
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
         <Card.Header
@@ -37,7 +53,7 @@ function RecogniseCard({ uid }) {
         >
           <Card.Img
             src={details?.photoUrl}
-            onClick={showTitle}
+            onClick={showTitle ? showTitle : null}
             style={{
               borderRadius: "10%",
               maxWidth: "5rem",
@@ -63,17 +79,23 @@ function RecogniseCard({ uid }) {
           <span>Praised for </span>
           <p></p>
           Praised by
-          <NavLink variant="light" onClick={showTitle}>
+          <NavLink variant="light" onClick={showTitle ? showTitle : null}>
             <p> {details?.firstName}</p>
           </NavLink>
-          {title ? <ProfileModal handleModal={showTitle} uid={uid} /> : null}
+          {title ? (
+            <ProfileModal
+              handleModal={showTitle ? showTitle : null}
+              uid={details.uid}
+            />
+          ) : null}
         </Card.Body>
         <Card.Footer className="100vh">
-          <LikeButton disabled={false} />
+          <LikeButton disabled={likeDisabled} />
         </Card.Footer>
       </Card>
       <br />
     </div>
   );
-}
+};
+
 export default RecogniseCard;
