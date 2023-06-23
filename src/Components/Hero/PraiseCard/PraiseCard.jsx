@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import {
-  GetUserDetailsByUid,
-  fetchUsersData,
-} from "../../../_services/UserService";
+import { GetUserDetailsByUid } from "../../../_services/UserService";
 import Select from "react-select";
 import { recogniseValues } from "../../data/constants";
 
@@ -11,6 +8,7 @@ import LoadingSpinner from "../../subComponents/LoadingSpinner";
 import RecognizePreview from "./RecognisePreview";
 
 function PraiseCard(props) {
+  // eslint-disable-next-line no-unused-vars
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
@@ -132,6 +130,8 @@ function PraiseCard(props) {
                 value={formData?.praizeText}
                 onChange={handleChange}
                 name="praizeText"
+                maxLength={200}
+                placeholder="Maximum 200 characters"
               />
             </Form.Group>
 
