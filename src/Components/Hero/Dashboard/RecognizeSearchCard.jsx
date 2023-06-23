@@ -4,11 +4,14 @@ import { Card } from "react-bootstrap";
 import { fetchUsersData } from "../../../_services/UserService";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const RecognizeSearchCard = () => {
   // eslint-disable-next-line no-unused-vars
   const [selected, setSelected] = useState();
   const [userData, setUserData] = useState([]);
+  const [user] = useAuthState(auth);
 
   const navigate = useNavigate();
 
@@ -22,7 +25,11 @@ const RecognizeSearchCard = () => {
 
   const fetchUserData = async () => {
     try {
-      const data = await fetchUsersData();
+      const res = await fetchUsersData();
+      console.log("Before", res);
+      const currentUid = user.uid;
+      const data = res.filter((element) => element.uid !== currentUid);
+      console.log("After", data);
       const opt = data.map((item) => {
         return {
           label: `${item.firstName} ${item.lastName} ${item.email}`,
