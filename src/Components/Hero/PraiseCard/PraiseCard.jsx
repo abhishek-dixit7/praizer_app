@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { GetUserDetailsByUid } from "../../../_services/UserService";
 import Select from "react-select";
@@ -6,20 +6,30 @@ import { recogniseValues } from "../../data/constants";
 
 import LoadingSpinner from "../../subComponents/LoadingSpinner";
 import RecognizePreview from "./RecognisePreview";
+import { auth } from "../../../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { createPraise } from "../../../_services/PraiseService";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../../../Context/Context";
 
 function PraiseCard(props) {
+  const [currentUser] = useAuthState(auth);
   // eslint-disable-next-line no-unused-vars
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
+  const { showToast } = useContext(Context);
+
+  const navigate = useNavigate();
 
   //Form Handles
   const [formData, setFormData] = useState({
     userName: "",
     photoUrl: "",
-    uid: "",
+    userPraisedUid: "",
+    praiserUid: "",
     praizeText: "",
-    recognition: "",
+    recognitionType: "",
     rewardPoints: 0,
   });
 
@@ -27,7 +37,28 @@ function PraiseCard(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Do something with the form data
-    console.log(formData);
+    //console.log(formData);
+
+    const request = {
+      userPraisedUid: formData.userPraisedUid,
+      praiserUid: formData.praiserUid,
+      praizeText: formData.praizeText,
+      recognitionType: formData.recognitionType.label,
+      rewardPoints: parseInt(formData.rewardPoints),
+    };
+
+    console.log(JSON.stringify(request));
+
+    createPraise(JSON.stringify(request)).then((x) => {
+      if (x.status === 200) {
+        navigate("/");
+        showToast("You have Praized Successfully!", "success");
+      } else {
+        showToast("Praized Failed!", "error");
+      }
+    });
+
+    //console.log(response);
   };
 
   // Handle input changes
@@ -42,7 +73,7 @@ function PraiseCard(props) {
   const handleSelectChange = (selectedOption) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      recognition: selectedOption,
+      recognitionType: selectedOption,
     }));
   };
 
@@ -67,8 +98,9 @@ function PraiseCard(props) {
       setFormData((prevFormData) => ({
         ...prevFormData,
         userName: `${data.firstName} ${data.lastName}`,
-        uid: data.uid,
+        userPraisedUid: data.uid,
         photoUrl: data.photoUrl,
+        praiserUid: currentUser.uid,
       })); // Set loading to false when data is retrieved
     } catch (error) {
       console.log(error);
@@ -123,6 +155,7 @@ function PraiseCard(props) {
               <Form.Control
                 as="textarea"
                 rows={3}
+                required
                 style={{
                   boxShadow:
                     "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
@@ -148,6 +181,7 @@ function PraiseCard(props) {
               <Select
                 options={options}
                 placeholder="Please select any one"
+                required
                 // value={selected}
                 // onChange={(e) => navigateHandler(e)}
                 // isMulti //Use this to select multiple options
@@ -159,7 +193,7 @@ function PraiseCard(props) {
                     color: "black",
                   }),
                 }}
-                value={formData?.recognition}
+                value={formData?.recognitionType}
                 onChange={handleSelectChange}
               />
             </Form.Group>

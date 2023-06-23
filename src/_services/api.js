@@ -2,8 +2,11 @@ import axios from "axios";
 
 // Create an instance of Axios with default configuration
 const api = axios.create({
-  baseURL: process.env.REACT_APP_baseURL, // Replace with your API base URL
+  baseURL: process.env.REACT_APP_baseURL,
+  // Replace with your API base URL
 });
+
+api.defaults.headers["Content-Type"] = "application/json";
 
 // Set up an interceptor to handle the JWT token
 api.interceptors.response.use(
