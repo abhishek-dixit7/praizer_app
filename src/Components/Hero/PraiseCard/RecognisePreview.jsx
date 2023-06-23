@@ -1,8 +1,9 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { RecogniseSkeleton } from "../../RCard/RecogniseCard";
+import { RecogniseSkeleton } from "../../RCard/RecogniseSkeleton";
 
 const RecognizePreview = ({ formData, onClose }) => {
+  console.log("formData", formData);
   return (
     <div className="form-preview-overlay">
       <Card style={{ minWidth: "60%", textAlign: "center" }}>
