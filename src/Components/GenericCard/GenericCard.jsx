@@ -14,7 +14,7 @@ function GenericCard(props) {
   };
 
   const GetData = async () => {
-    GetUserDetailsByUid(props.uid)
+    GetUserDetailsByUid(props?.uid)
       .then((x) => {
         setUser(x);
         // console.log(x);
@@ -34,8 +34,8 @@ function GenericCard(props) {
           <VscGift />
         </Card.Header>
         <Card.Body>
-          <h3>{props.value === 1 ? cardValues[0] : cardValues[1]}</h3>
-          <h4>{`${user.firstName} ${user.lastName}`}</h4>
+          <h3>{props?.value === 1 ? cardValues[0] : cardValues[1]}</h3>
+          <h4>{`${user?.firstName} ${user?.lastName}`}</h4>
           <Card.Img
             src={user?.photoUrl}
             onClick={() => {

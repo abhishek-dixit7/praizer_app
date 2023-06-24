@@ -41,6 +41,7 @@ export const RecogniseSkeleton = ({ details, isPreview }) => {
   useEffect(() => {
     GetPraizer();
     GetUserPraized();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
