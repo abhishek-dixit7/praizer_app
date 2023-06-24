@@ -26,8 +26,13 @@ export default function CelebrationCard() {
 
   const fetchUserData = async () => {
     try {
-      const data = await fetchUsersData();
-      setUserData(data);
+      fetchUsersData()
+        .then((data) => {
+          setUserData(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {}
   };
 
@@ -36,7 +41,7 @@ export default function CelebrationCard() {
       <Card className="hero-cards">
         <Card.Header as={"h5"}>Celebrations</Card.Header>
         <Card.Body>
-          {userData.map((item) => (
+          {userData?.map((item) => (
             <BirthdayCard
               img={item.photoUrl}
               name={item.firstName + " " + item.lastName}

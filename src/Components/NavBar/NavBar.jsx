@@ -17,9 +17,13 @@ const NavBar = () => {
 
   useEffect(() => {
     if (user) {
-      LoginService(user.accessToken);
-      navigate("/");
-      showToast("Logged In Successfully!", "success");
+      try {
+        LoginService(user.accessToken);
+        navigate("/");
+        showToast("Logged In Successfully!", "success");
+      } catch (err) {
+        navigate("/notfound");
+      }
     } else {
       console.log("please login");
     }

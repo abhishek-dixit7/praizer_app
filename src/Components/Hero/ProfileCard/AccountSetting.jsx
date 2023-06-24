@@ -19,7 +19,7 @@ const AccountSetting = () => {
 
   useEffect(() => {
     if (user) {
-      fetchUserData(user.uid);
+      fetchUserData(user?.uid);
     }
   }, [user]);
 
@@ -34,9 +34,9 @@ const AccountSetting = () => {
     e.preventDefault();
 
     const data = {
-      dob: dateOfBirth.current?.value,
-      doj: dateOfJoining.current?.value,
-      photo: photoUrl.current?.value,
+      dob: dateOfBirth?.current?.value,
+      doj: dateOfJoining?.current?.value,
+      photo: photoUrl?.current?.value,
     };
 
     console.log(data);
@@ -56,11 +56,11 @@ const AccountSetting = () => {
             <div
               style={{ cursor: "pointer" }}
               onClick={() => {
-                photoUrl.current.click();
+                photoUrl?.current?.click();
               }}
             >
               <img
-                src={user.photoURL}
+                src={user?.photoURL}
                 alt="Selected"
                 style={{
                   marginTop: "10px",
@@ -78,7 +78,7 @@ const AccountSetting = () => {
               style={{ display: "none" }}
             />
             <Form.Label style={{ fontSize: "2.5rem", fontWeight: "500" }}>
-              {userData.firstName + " " + userData.lastName}
+              {userData?.firstName + " " + userData?.lastName}
             </Form.Label>
           </Form.Group>
 
