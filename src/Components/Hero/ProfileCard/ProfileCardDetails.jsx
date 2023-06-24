@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import brand_logo from "../../../assets/brand_logo.jpg";
 import { NavLink } from "react-router-dom";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../utils/firebase";
+import { GetUserDetailsByUid } from "../../../_services/UserService";
 
 export default function ProfileCardDetails() {
-  // eslint-disable-next-line no-unused-vars
-  const [user, loading] = useAuthState(auth);
+  const [currentUser] = useAuthState(auth);
+  const [user, setUser] = useState({});
+
+  const GetUser = async () => {
+    GetUserDetailsByUid(currentUser.uid)
+      .then((x) => {
+        setUser(x);
+        // console.log(x);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    GetUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div style={{ flexBasis: "20%" }}>
@@ -23,7 +38,7 @@ export default function ProfileCardDetails() {
           }}
         >
           <Card.Img
-            src={user ? user.photoURL : brand_logo}
+            src={user ? user.photoUrl : brand_logo}
             alt="Profile Photo"
             style={{
               marginTop: "1rem",
@@ -31,15 +46,17 @@ export default function ProfileCardDetails() {
             }}
           />
 
-          {user ? user.displayName : "Profile Name"}
+          {user ? `${user.firstName} ${user.lastName}` : "Profile Name"}
         </Card.Title>
         <div style={{ color: "var(--clr-primary-400)" }}>
-          <div style={{ fontWeight: "500", fontSize: "2rem" }}>300</div>
+          <div style={{ fontWeight: "500", fontSize: "2rem" }}>
+            {user?.pointBalance}
+          </div>
           Points Balance
         </div>
         <Card.Body className="pta-card">
           <div>Points to Award</div>
-          300
+          {user?.pointToAward}
         </Card.Body>
         <Card.Footer
           style={{

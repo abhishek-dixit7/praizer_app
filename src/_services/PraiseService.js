@@ -8,7 +8,7 @@ if (token) {
 
 export const createPraise = async (postData) => {
   try {
-    console.log(postData);
+    //console.log(postData);
     // Make the API call
     const response = await api.post("/Praises/CreatePraises", postData);
     const praiseData = response;
@@ -17,5 +17,38 @@ export const createPraise = async (postData) => {
     return praiseData;
   } catch (error) {
     console.error("Failed to create praise:", error);
+  }
+};
+
+export const getPraises = async () => {
+  try {
+    // Make the API call
+    const response = await api.get("/Praises/GetPraises");
+    const praiseData = response.data;
+    return praiseData;
+  } catch (error) {
+    console.error("Failed to get praises:", error);
+  }
+};
+
+export const getBirthdays = async () => {
+  try {
+    // Make the API call
+    const response = await api.get("/Praises/GetBirthdays");
+    const praiseData = response.data;
+    return praiseData;
+  } catch (error) {
+    console.error("Failed to get birthdays:", error);
+  }
+};
+
+export const getAnniverseries = async () => {
+  try {
+    // Make the API call
+    const response = await api.get("/Praises/GetAnniversary");
+    const praiseData = response.data;
+    return praiseData;
+  } catch (error) {
+    console.error("Failed to get anniverseries:", error);
   }
 };

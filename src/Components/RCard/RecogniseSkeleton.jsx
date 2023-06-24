@@ -2,13 +2,47 @@ import { Card } from "react-bootstrap";
 import LikeButton from "../subComponents/LikeButton";
 import ProfileModal from "../Hero/ProfileCard/ProfileModal";
 import { NavLink } from "react-router-dom";
-export const RecogniseSkeleton = ({
-  details,
-  showTitle,
-  title,
-  likeDisabled,
-}) => {
-  console.log("details", details);
+import { GetUserDetailsByUid } from "../../_services/UserService";
+import { useEffect, useState } from "react";
+
+export const RecogniseSkeleton = ({ details, isPreview }) => {
+  // console.log("details", details);
+  const [praizer, setPraizer] = useState({});
+  const [userPraized, setUserPraized] = useState({});
+  const [title, setTitle] = useState(false);
+  const [uid, setUid] = useState();
+
+  const showTitle = () => {
+    setTitle(!title);
+  };
+
+  //praizer data fetch
+
+  const GetPraizer = async () => {
+    GetUserDetailsByUid(details.praizerUid)
+      .then((x) => {
+        setPraizer(x);
+        // console.log(x);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //userPraized data fetch
+
+  const GetUserPraized = async () => {
+    GetUserDetailsByUid(details.userPraisedUid)
+      .then((x) => {
+        setUserPraized(x);
+        // console.log(x);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    GetPraizer();
+    GetUserPraized();
+  }, []);
+
   return (
     <div className="mt-1 mx-1">
       <Card className="hero-cards">
@@ -22,8 +56,11 @@ export const RecogniseSkeleton = ({
           }}
         >
           <Card.Img
-            src={details?.photoUrl}
-            onClick={showTitle ? showTitle : null}
+            src={userPraized?.photoUrl}
+            onClick={() => {
+              setUid(userPraized.uid);
+              showTitle();
+            }}
             style={{
               borderRadius: "10%",
               maxWidth: "5rem",
@@ -41,29 +78,35 @@ export const RecogniseSkeleton = ({
               color: "var(--clr-primary-400)",
             }}
           >
-            Hunger
+            {details.recognitionType}
           </span>
         </Card.Header>
-        <Card.Img src="" />
+
         <Card.Body>
           <span>
-            Praised for <b>'{details?.recognition?.label}'</b>
+            Praised for <b>'{details.recognitionType}'</b>
           </span>
           <p></p>
           Praised by
-          <NavLink variant="light" onClick={showTitle ? showTitle : null}>
-            <p> {details?.userName}</p>
+          <NavLink
+            variant="light"
+            onClick={() => {
+              setUid(praizer.uid);
+              showTitle();
+            }}
+          >
+            <p> {`${praizer?.firstName} ${praizer?.lastName}`}</p>
           </NavLink>
           <p>{details?.praizeText}</p>
-          {title ? (
+          {!isPreview && title && (
             <ProfileModal
               handleModal={showTitle ? showTitle : null}
-              uid={details?.uid}
+              uid={uid}
             />
-          ) : null}
+          )}
         </Card.Body>
         <Card.Footer className="100vh">
-          <LikeButton disabled={likeDisabled} />
+          <LikeButton disabled={isPreview} />
         </Card.Footer>
       </Card>
       <br />

@@ -5,6 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background: #232526; 
+  background: -webkit-linear-gradient(
+    to right,
+    #414345,
+    #232526
+  ); 
+  background: linear-gradient(to right, #414345, #232526); */
 }
 
 code {

@@ -26,10 +26,10 @@ const RecognizeSearchCard = () => {
   const fetchUserData = async () => {
     try {
       const res = await fetchUsersData();
-      console.log("Before", res);
+      // console.log("Before", res);
       const currentUid = user.uid;
       const data = res.filter((element) => element.uid !== currentUid);
-      console.log("After", data);
+      // console.log("After", data);
       const opt = data.map((item) => {
         return {
           label: `${item.firstName} ${item.lastName} ${item.email}`,

@@ -25,9 +25,8 @@ function PraiseCard(props) {
   //Form Handles
   const [formData, setFormData] = useState({
     userName: "",
-    photoUrl: "",
     userPraisedUid: "",
-    praiserUid: "",
+    praizerUid: "",
     praizeText: "",
     recognitionType: "",
     rewardPoints: 0,
@@ -41,7 +40,7 @@ function PraiseCard(props) {
 
     const request = {
       userPraisedUid: formData.userPraisedUid,
-      praiserUid: formData.praiserUid,
+      praiserUid: formData.praizerUid,
       praizeText: formData.praizeText,
       recognitionType: formData.recognitionType.label,
       rewardPoints: parseInt(formData.rewardPoints),
@@ -99,8 +98,7 @@ function PraiseCard(props) {
         ...prevFormData,
         userName: `${data.firstName} ${data.lastName}`,
         userPraisedUid: data.uid,
-        photoUrl: data.photoUrl,
-        praiserUid: currentUser.uid,
+        praizerUid: currentUser.uid,
       })); // Set loading to false when data is retrieved
     } catch (error) {
       console.log(error);
