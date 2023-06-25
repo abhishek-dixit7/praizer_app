@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Form, Button, Card, Row, Col } from "react-bootstrap";
-import { GetUserDetailsByUid } from "../../../_services/UserService";
-
+import {
+  GetUserDetailsByUid,
+  UpdateUserDetailsByUid,
+} from "../../../_services/UserService";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Context } from "../../../Context/Context";
+import LoadingSpinner from "../../subComponents/LoadingSpinner";
 
 const AccountSetting = () => {
+  const { showToast } = useContext(Context);
   const [user] = useAuthState(auth);
   const [formData, setFormData] = useState({
     dateOfBirth: "",
@@ -15,6 +21,7 @@ const AccountSetting = () => {
     lastName: "",
     photoUrl: "",
   });
+  const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   // const existingDateOfBirth = "1999-09-17";
   // const existingDateOfJoining = "2023-05-12";
@@ -24,6 +31,7 @@ const AccountSetting = () => {
   useEffect(() => {
     if (user) {
       fetchUserData(user?.uid);
+      console.log(user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -52,6 +60,7 @@ const AccountSetting = () => {
     //console.log(formData);
 
     const request = {
+      uid: user?.uid,
       firstName: formData.firstName,
       lastName: formData.lastName,
       dateOfBirth: formData.dateOfBirth,
@@ -61,10 +70,19 @@ const AccountSetting = () => {
     };
     setEdit(true);
     console.log("Request", request);
+    console.log("Json", JSON.stringify(request));
 
-    console.log(JSON.stringify(request));
-    //console.log(response);
+    UpdateUserDetailsByUid(JSON.stringify(request)).then((x) => {
+      if (x.status === 200) {
+        navigate("/");
+        showToast("Update Successful!", "success");
+      } else {
+        showToast("Updation Failed!", "error");
+        console.log("X", x);
+      }
+    });
   };
+
   return (
     <div style={{ textAlign: "start" }}>
       <Card className="hero-cards">
@@ -108,7 +126,7 @@ const AccountSetting = () => {
               value={formData?.dateOfBirth}
               disabled={edit}
               name="dateOfBirth"
-              onChange={() => handleChange()}
+              onChange={handleChange}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicDOB">

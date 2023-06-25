@@ -29,3 +29,12 @@ export const GetUserDetailsByUid = async (uid) => {
     console.error("Failed to fetch user data:", error);
   }
 };
+
+export const UpdateUserDetailsByUid = async (data) => {
+  try {
+    const response = await api.post("/Users/updateUserDetailsByUid", data);
+    return response;
+  } catch (error) {
+    console.error("Failed to fetch user data:", error);
+  }
+};
