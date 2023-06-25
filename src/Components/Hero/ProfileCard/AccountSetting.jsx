@@ -24,15 +24,11 @@ const AccountSetting = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
-  // const existingDateOfBirth = "1999-09-17";
-  // const existingDateOfJoining = "2023-05-12";
-
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     if (user) {
       fetchUserData(user?.uid);
-      console.log(user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -43,7 +39,6 @@ const AccountSetting = () => {
       ...prevFormData,
       [name]: value,
     }));
-    console.log("formData", formData);
   };
 
   const fetchUserData = async (uid) => {
@@ -52,16 +47,11 @@ const AccountSetting = () => {
       setUserData(data);
       setFormData(data);
       setLoading(false);
-
-      console.log("Form data after set", formData);
     } catch (error) {}
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Do something with the form data
-    //console.log(formData);
-
     const request = {
       uid: user?.uid,
       firstName: formData.firstName,
@@ -69,19 +59,16 @@ const AccountSetting = () => {
       dateOfBirth: formData.dateOfBirth,
       dateOfJoining: formData.dateOfJoining,
       email: formData.email,
-      photoUrl: formData.photoUrl,
+      //For now setting the photo URL as the previous one
+      photoUrl: userData.photoUrl,
     };
     setEdit(true);
-    console.log("Request", request);
-    console.log("Json", JSON.stringify(request));
-
     UpdateUserDetailsByUid(JSON.stringify(request)).then((x) => {
       if (x.status === 200) {
         navigate("/");
         showToast("Update Successful!", "success");
       } else {
         showToast("Updation Failed!", "error");
-        console.log("X", x);
       }
     });
   };
@@ -189,7 +176,7 @@ const AccountSetting = () => {
               </Button>
             </Col>
             <Col md={8}>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={edit}>
                 Submit
               </Button>
             </Col>
