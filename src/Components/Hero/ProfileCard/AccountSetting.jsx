@@ -21,6 +21,7 @@ const AccountSetting = () => {
     lastName: "",
     photoUrl: "",
   });
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   // const existingDateOfBirth = "1999-09-17";
@@ -50,6 +51,8 @@ const AccountSetting = () => {
       const data = await GetUserDetailsByUid(uid);
       setUserData(data);
       setFormData(data);
+      setLoading(false);
+
       console.log("Form data after set", formData);
     } catch (error) {}
   };
@@ -82,7 +85,13 @@ const AccountSetting = () => {
       }
     });
   };
-
+  if (loading) {
+    return (
+      <div className="mt-5">
+        <LoadingSpinner />
+      </div>
+    );
+  }
   return (
     <div style={{ textAlign: "start" }}>
       <Card className="hero-cards">
