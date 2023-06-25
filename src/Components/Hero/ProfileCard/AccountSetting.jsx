@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Form, Button, Card, Row, Col } from "react-bootstrap";
 import { GetUserDetailsByUid } from "../../../_services/UserService";
 
 import { auth } from "../../../utils/firebase";
@@ -7,13 +7,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const AccountSetting = () => {
   const [user] = useAuthState(auth);
-
-  const dateOfBirth = useRef();
-  const dateOfJoining = useRef();
-  const photoUrl = useRef();
-
-  const existingDateOfBirth = "1999-09-17";
-  const existingDateOfJoining = "2023-05-12";
+  const [formData, setFormData] = useState({
+    dateOfBirth: "",
+    dateOfJoining: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    photoUrl: "",
+  });
+  const [edit, setEdit] = useState(true);
+  // const existingDateOfBirth = "1999-09-17";
+  // const existingDateOfJoining = "2023-05-12";
 
   const [userData, setUserData] = useState([]);
 
@@ -21,44 +25,56 @@ const AccountSetting = () => {
     if (user) {
       fetchUserData(user?.uid);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+    console.log("userData", userData);
+    console.log("formData", formData);
+  };
 
   const fetchUserData = async (uid) => {
     try {
       const data = await GetUserDetailsByUid(uid);
       setUserData(data);
+      setFormData(data);
+      console.log("Form data after set", formData);
     } catch (error) {}
   };
 
-  const HandleFormSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Do something with the form data
+    //console.log(formData);
 
-    const data = {
-      dob: dateOfBirth?.current?.value,
-      doj: dateOfJoining?.current?.value,
-      photo: photoUrl?.current?.value,
+    const request = {
+      userPraisedUid: formData.userPraisedUid,
+      praiserUid: formData.praizerUid,
+      praizeText: formData.praizeText,
+      recognitionType: formData.recognitionType.label,
+      rewardPoints: parseInt(formData.rewardPoints),
     };
 
-    console.log(data);
+    console.log(JSON.stringify(request));
+    //console.log(response);
   };
-
   return (
     <div style={{ textAlign: "start" }}>
       <Card className="hero-cards">
         <Form
           className="mx-5 mb-4 mt-2 d-flex flex-column"
-          onSubmit={HandleFormSubmit}
+          onSubmit={handleSubmit}
         >
           <Form.Group
             className="mb-3 d-flex justify-content-center align-items-center"
             style={{ gap: "2rem" }}
           >
-            <div
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                photoUrl?.current?.click();
-              }}
-            >
+            <div style={{ cursor: "pointer" }}>
               <img
                 src={user?.photoURL}
                 alt="Selected"
@@ -72,10 +88,11 @@ const AccountSetting = () => {
             </div>
             <Form.Control
               type="file"
-              // onChange={handleImageChange}
+              //onChange={handleImageChange}
               accept="image/*"
-              ref={photoUrl}
               style={{ display: "none" }}
+              disabled={edit}
+              //value={userData?.photoUrl}
             />
             <Form.Label style={{ fontSize: "2.5rem", fontWeight: "500" }}>
               {userData?.firstName + " " + userData?.lastName}
@@ -86,23 +103,58 @@ const AccountSetting = () => {
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="date"
-              ref={dateOfBirth}
-              defaultValue={existingDateOfBirth}
+              value={formData?.dateOfBirth}
+              disabled={edit}
+              name="dateOfBirth"
+              onChange={() => handleChange()}
             />
           </Form.Group>
-
+          <Form.Group className="mb-3" controlId="formBasicDOB">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type="text"
+              value={formData?.firstName}
+              disabled={edit}
+              name="firstName"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicDOB">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              value={formData?.lastName}
+              disabled={edit}
+              name="lastName"
+              onChange={handleChange}
+            />
+          </Form.Group>
           <Form.Group className="mb-3 " controlId="formBasicDOJ">
             <Form.Label>Date of Joining</Form.Label>
             <Form.Control
               type="date"
-              ref={dateOfJoining}
-              defaultValue={existingDateOfJoining}
+              value={formData?.dateOfJoining}
+              disabled={edit}
+              name="dateOfJoining"
+              onChange={handleChange}
             />
           </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          <Row>
+            <Col md={4}>
+              <Button
+                variant="primary"
+                onClick={() => setEdit(!edit)}
+                disabled={!edit}
+              >
+                Edit
+              </Button>
+            </Col>
+            <Col md={8}>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Card>
     </div>
