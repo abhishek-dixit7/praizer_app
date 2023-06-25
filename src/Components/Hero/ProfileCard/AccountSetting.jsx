@@ -34,7 +34,6 @@ const AccountSetting = () => {
       ...prevFormData,
       [name]: value,
     }));
-    console.log("userData", userData);
     console.log("formData", formData);
   };
 
@@ -53,12 +52,15 @@ const AccountSetting = () => {
     //console.log(formData);
 
     const request = {
-      userPraisedUid: formData.userPraisedUid,
-      praiserUid: formData.praizerUid,
-      praizeText: formData.praizeText,
-      recognitionType: formData.recognitionType.label,
-      rewardPoints: parseInt(formData.rewardPoints),
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      dateOfBirth: formData.dateOfBirth,
+      dateOfJoining: formData.dateOfJoining,
+      email: formData.email,
+      photoUrl: formData.photoUrl,
     };
+    setEdit(true);
+    console.log("Request", request);
 
     console.log(JSON.stringify(request));
     //console.log(response);
