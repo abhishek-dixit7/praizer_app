@@ -130,6 +130,16 @@ const AccountSetting = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicDOB">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              value={formData?.email}
+              disabled={edit}
+              name="email"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicDOB">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               type="text"
