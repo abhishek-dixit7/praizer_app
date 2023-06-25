@@ -84,10 +84,12 @@ export const RecogniseSkeleton = ({ details, isPreview }) => {
         </Card.Header>
 
         <Card.Body>
-          <span>
+          <span style={{ fontSize: "1.7rem", fontWeight: "500" }}>
             Praised for <b>'{details.recognitionType}'</b>
           </span>
-          <p></p>
+          <p style={{ marginTop: "1rem", fontSize: "1.3rem" }}>
+            {details?.praizeText}
+          </p>
           Praised by
           <NavLink
             variant="light"
@@ -96,9 +98,24 @@ export const RecogniseSkeleton = ({ details, isPreview }) => {
               showTitle();
             }}
           >
-            <p> {`${praizer?.firstName} ${praizer?.lastName}`}</p>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "0.25rem",
+              }}
+            >
+              <Card.Img
+                src={praizer?.photoUrl}
+                style={{
+                  borderRadius: "50%",
+                  maxWidth: "1.5rem",
+                }}
+              />
+              {`${praizer?.firstName} ${praizer?.lastName}`}
+            </p>
           </NavLink>
-          <p>{details?.praizeText}</p>
           {!isPreview && title && (
             <ProfileModal
               handleModal={showTitle ? showTitle : null}
