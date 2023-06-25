@@ -12,7 +12,9 @@ function MyTeam() {
       <div className="mt-1 mx-1">
         <Card style={{ minHeight: "20rem" }}>
           <Card.Header as={"h5"}>Team </Card.Header>
-          <Card.Body></Card.Body>
+          <Card.Body>
+            <h1>Coming Soon!!!!!</h1>
+          </Card.Body>
           <Card.Footer></Card.Footer>
         </Card>
       </div>
