@@ -4,7 +4,6 @@ import { Card, Form } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import { Context } from "../../Context/Context";
-import { ImArrowLeft } from "react-icons/im";
 import { GoogleLogin, LoginService } from "../../_services/LoginService";
 
 const SignUpCard = ({ setLogin }) => {
@@ -106,9 +105,9 @@ const SignUpCard = ({ setLogin }) => {
                 <button
                   onClick={setLogin}
                   className="pink-button "
-                  style={{ height: "3rem", fontSize: "1rem", width: "50px" }}
+                  style={{ height: "3rem", fontSize: "1rem", width: "80%" }}
                 >
-                  <ImArrowLeft />
+                  {/* <ImArrowLeft /> */}Go Back
                 </button>
                 <button
                   type="submit"
