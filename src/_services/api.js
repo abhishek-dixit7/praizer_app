@@ -6,7 +6,7 @@ const api = axios.create({
   // Replace with your API base URL
 });
 
-api.defaults.headers["Content-Type"] = "application/json";
+// api.defaults.headers["Content-Type"] = "application/json";
 
 // Set up an interceptor to handle the JWT token
 api.interceptors.response.use(
