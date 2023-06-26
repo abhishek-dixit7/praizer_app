@@ -1,4 +1,4 @@
-import { React, useEffect, useContext } from "react";
+import { React, useEffect, useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
@@ -8,17 +8,29 @@ import { auth } from "../../utils/firebase";
 import brand_logo from "../../assets/brand_logo.jpg";
 import { GoogleLogin, LoginService } from "../../_services/LoginService";
 import { Context } from "../../Context/Context";
+import { GetUserDetailsByUid } from "../../_services/UserService";
 
 const NavBar = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
-  const [user, loading] = useAuthState(auth);
+  const [currentUser] = useAuthState(auth);
   const { showToast } = useContext(Context);
+  const [user, setUser] = useState({});
+
+  const GetUser = async () => {
+    GetUserDetailsByUid(currentUser.uid)
+      .then((x) => {
+        setUser(x);
+        // console.log(x);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       try {
-        LoginService(user.accessToken);
+        LoginService(currentUser.accessToken);
+        GetUser();
         navigate("/");
         showToast("Logged In Successfully!", "success");
       } catch (err) {
@@ -28,7 +40,7 @@ const NavBar = () => {
       console.log("please login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [currentUser]);
 
   return (
     <>
@@ -66,7 +78,7 @@ const NavBar = () => {
             <a href="/">
               <IoMdNotifications className="d-inline-block align-top navbar__icons" />
             </a>
-            {!user && (
+            {!currentUser && (
               <div
                 className="mt-1"
                 style={{ cursor: "pointer" }}
@@ -75,12 +87,12 @@ const NavBar = () => {
                 <Navbar.Text className="text-white">Login</Navbar.Text>
               </div>
             )}
-            {user && (
+            {currentUser && (
               <NavDropdown
                 title={
                   <div>
                     <img
-                      src={user.photoURL}
+                      src={user.photoUrl}
                       width="30"
                       height="30"
                       alt="profile_logo"
