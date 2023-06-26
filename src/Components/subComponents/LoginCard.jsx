@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
 import { Card, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import { Context } from "../../Context/Context";
 import SignUpCard from "./SignUpCard";
+import { BiCopyright } from "react-icons/bi";
+import { GoogleLogin, LoginService } from "../../_services/LoginService";
+
 const LoginCard = () => {
   const [login, setLogin] = useState(true);
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -39,7 +42,12 @@ const LoginCard = () => {
     <div className="d-flex justify-content-center">
       {login ? (
         <Card className="card " style={{ width: "300px" }}>
-          <Card.Header as={"h5"}>LOGIN</Card.Header>
+          <Card.Header>
+            <h5>Log In</h5>
+            <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
+              Click Login button in the Navbar for Google Login
+            </p>
+          </Card.Header>
           <Card.Body>
             <Form
               style={{ display: "grid", gap: "1rem" }}
@@ -97,8 +105,27 @@ const LoginCard = () => {
                 </button>
               </div>
             </Form>
+            <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
+              <div
+                className="mt-1"
+                style={{ cursor: "pointer" }}
+                onClick={GoogleLogin}
+              >
+                <b>
+                  {" "}
+                  <NavLink>Login with Google</NavLink>
+                </b>
+              </div>
+            </p>
           </Card.Body>
-          <Card.Footer></Card.Footer>
+          <Card.Footer>
+            <u>
+              {" "}
+              <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
+                <BiCopyright /> {""}All Right Reserved. Designed by Gods
+              </p>
+            </u>
+          </Card.Footer>
         </Card>
       ) : (
         <SignUpCard setLogin={setLogin} />

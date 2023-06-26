@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import { Context } from "../../Context/Context";
 import { ImArrowLeft } from "react-icons/im";
+import { GoogleLogin, LoginService } from "../../_services/LoginService";
 
 const SignUpCard = ({ setLogin }) => {
   const [formData, setFormData] = useState({
@@ -43,7 +44,10 @@ const SignUpCard = ({ setLogin }) => {
     <div>
       <div className="d-flex justify-content-center">
         <Card className="card " style={{ width: "300px" }}>
-          <Card.Header as={"h5"}>LOGIN</Card.Header>
+          <Card.Header as={"h5"}>
+            <p style={{ fontSize: "1rem" }}>Welcome to the Praizer Portal</p>{" "}
+            Sign Up
+          </Card.Header>
           <Card.Body>
             <Form
               style={{ display: "grid", gap: "1rem" }}
@@ -117,7 +121,19 @@ const SignUpCard = ({ setLogin }) => {
             </Form>
           </Card.Body>
 
-          <Card.Footer></Card.Footer>
+          <Card.Footer>
+            <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
+              <div
+                className="mt-1"
+                style={{ cursor: "pointer" }}
+                onClick={GoogleLogin}
+              >
+                <u>
+                  <NavLink>Signup with Google</NavLink>
+                </u>
+              </div>
+            </p>
+          </Card.Footer>
         </Card>
       </div>
     </div>
