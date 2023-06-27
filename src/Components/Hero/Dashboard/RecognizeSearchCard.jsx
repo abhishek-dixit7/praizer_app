@@ -4,14 +4,12 @@ import { Card } from "react-bootstrap";
 import { fetchUsersData } from "../../../_services/UserService";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../../utils/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 const RecognizeSearchCard = () => {
   // eslint-disable-next-line no-unused-vars
-  const [selected, setSelected] = useState();
+  const [selected] = useState();
   const [userData, setUserData] = useState([]);
-  const [user] = useAuthState(auth);
+  const currentUserId = sessionStorage.getItem("currentUserId");
 
   const navigate = useNavigate();
 
@@ -28,8 +26,7 @@ const RecognizeSearchCard = () => {
     try {
       const res = await fetchUsersData();
       // console.log("Before", res);
-      const currentUid = user.uid;
-      const data = res.filter((element) => element.uid !== currentUid);
+      const data = res.filter((element) => element.uid !== currentUserId);
       // console.log("After", data);
       const opt = data.map((item) => {
         return {

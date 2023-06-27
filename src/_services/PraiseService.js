@@ -10,7 +10,11 @@ export const createPraise = async (postData) => {
   try {
     //console.log(postData);
     // Make the API call
-    const response = await api.post("/Praises/CreatePraises", postData);
+    const response = await api.post("/Praises/CreatePraises", postData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const praiseData = response;
 
     // console.log("Praise:", praiseData);
