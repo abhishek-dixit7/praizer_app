@@ -34,6 +34,7 @@ const AccountSetting = () => {
       setUserData(data);
       setFormData(data);
       setLoading(false);
+      console.log(formData);
     } catch (error) {}
   };
 
@@ -72,10 +73,12 @@ const AccountSetting = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+    console.log(formData);
   };
 
   const handleSubmit = (event) => {
@@ -95,6 +98,7 @@ const AccountSetting = () => {
 
     //Setting the Edit button to true
     setEdit(true);
+    console.log(formRequest);
 
     UpdateUserDetailsByUid(formRequest).then((x) => {
       if (x.status === 200) {
@@ -156,7 +160,7 @@ const AccountSetting = () => {
             </Form.Label>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="date"
@@ -166,7 +170,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
@@ -176,7 +180,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               type="text"
@@ -186,7 +190,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               type="text"
@@ -196,7 +200,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3 " controlId="formBasicDOJ">
+          <Form.Group className="mb-3 ">
             <Form.Label>Date of Joining</Form.Label>
             <Form.Control
               type="date"
