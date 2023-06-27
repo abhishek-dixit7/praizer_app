@@ -1,40 +1,37 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import RouteComponents from "./Components/routes";
 import React, { useEffect, useState } from "react";
+import RouteComponents from "./Components/routes";
 import { NavBar, SubNavBar, Banner } from "./Components/NavBar";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./utils/firebase";
-import LoadingSpinner from "./Components/subComponents/LoadingSpinner";
 import LoginCard from "./Components/subComponents/LoginCard";
 import { GetUserDetailsByUid } from "./_services/UserService";
+import LoadingSpinner from "./Components/subComponents/LoadingSpinner";
+import { auth } from "./utils/firebase";
 
 function App() {
-  // const [user, loading] = useAuthState(auth);
-  const currentUserId = localStorage.getItem("currentUserId");
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
-  //Auto Logout on window close
+  const currentUserId = sessionStorage.getItem("currentUserId");
+
   useEffect(() => {
-    // eslint-disable-next-line no-unused-vars
-    fetchUserDetails(currentUserId);
-    console.log("currentUser", currentUser);
+    //fetching currentUser
+    if (currentUserId) fetchUserDetails(currentUserId);
     const handleAppClose = () => {
-      // auth
-      //   .signOut()
-      //   .then(() => {
-      //     // Logout successful
-      //   })
-      //   .catch((error) => {
-      //     // An error occurred while logging out
-      //     console.log(error);
-      //   });
-      localStorage.clear();
+      auth
+        .signOut()
+        .then(() => {
+          // Logout successful
+        })
+        .catch((error) => {
+          // An error occurred while logging out
+          console.log(error);
+        });
     };
-    window.addEventListener("beforeunload", handleAppClose);
+    window.addEventListener("unload", handleAppClose);
     return () => {
-      window.removeEventListener("beforeunload", handleAppClose);
+      window.removeEventListener("unload", handleAppClose);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchUserDetails = async (currentUserId) => {
@@ -46,18 +43,31 @@ function App() {
 
   return (
     <div className="App mx-auto">
-      {loading ? (
-        <div className="fs-1 mt-5">
+      {loading && currentUserId ? (
+        <div
+          style={{
+            minHeight: "100dvh",
+            display: "grid",
+            placeContent: "center",
+          }}
+        >
           <LoadingSpinner />
         </div>
       ) : (
         !currentUser && (
-          <div className="fs-1 mt-5">
+          <div
+            style={{
+              minHeight: "100dvh",
+              display: "grid",
+              placeContent: "center",
+            }}
+          >
             <LoginCard />
           </div>
         )
       )}
-      {!loading && currentUser && (
+
+      {!loading && currentUserId && currentUser && (
         <>
           <NavBar />
           <SubNavBar />

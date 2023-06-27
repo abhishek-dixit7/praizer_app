@@ -1,6 +1,6 @@
 import api from "./api";
 
-const token = localStorage.getItem("jwtToken");
+const token = sessionStorage.getItem("jwtToken");
 if (token) {
   // Include the JWT token in the request headers
   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;

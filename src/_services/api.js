@@ -11,12 +11,12 @@ const api = axios.create({
 // Set up an interceptor to handle the JWT token
 api.interceptors.response.use(
   (response) => {
-    // If the response contains a JWT token, store it in localStorage or a state management solution
+    // If the response contains a JWT token, store it in sessionStorage or a state management solution
     const token = response.data.token;
     if (token) {
       // Store the token for future API calls
-      localStorage.setItem("jwtToken", token);
-      localStorage.setItem("currentUserId", response.data.currentUserId);
+      sessionStorage.setItem("jwtToken", token);
+      sessionStorage.setItem("currentUserId", response.data.currentUserId);
 
       // You can also set the token in your application's state management solution
     }

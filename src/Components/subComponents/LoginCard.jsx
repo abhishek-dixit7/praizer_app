@@ -1,25 +1,42 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card, Form } from "react-bootstrap";
-import { useNavigate, NavLink } from "react-router-dom";
-import { auth } from "../../utils/firebase";
 import { Context } from "../../Context/Context";
 import SignUpCard from "./SignUpCard";
 import { BiCopyright } from "react-icons/bi";
-import { GoogleLogin, LoginService } from "../../_services/LoginService";
+import { FcGoogle } from "react-icons/fc";
+import {
+  GoogleLogin,
+  Login,
+  FirebaseLogin,
+} from "../../_services/LoginService";
+import { auth } from "../../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const LoginCard = () => {
   const [login, setLogin] = useState(true);
   const [formData, setFormData] = useState({ username: "", password: "" });
-  const navigate = useNavigate();
+  const [googleUser] = useAuthState(auth);
+
   const { showToast } = useContext(Context);
+
+  useEffect(() => {
+    if (googleUser) {
+      FirebaseLogin(googleUser.accessToken);
+      showToast("Google Log In was Successfully!!!", "success");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [googleUser]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
-    console.log(formData);
+    //console.log(formData);
   };
 
   const handleSubmit = (event) => {
@@ -28,29 +45,44 @@ const LoginCard = () => {
       username: formData.username,
       password: formData.password,
     };
-    // UpdateUserDetailsByUid(JSON.stringify(request)).then((x) => {
-    //   if (x.status === 200) {
-    //     navigate("/");
-    //     showToast("Update Successful!", "success");
-    //   } else {
-    //     showToast("Updation Failed!", "error");
-    //   }
-    // });
+    Login(JSON.stringify(request)).then((x) => {
+      if (x.status === 200) {
+        showToast("Logged In Successfully!!!", "success");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      } else {
+        showToast(x.data, "error");
+      }
+    });
     console.log(request);
   };
   return (
     <div className="d-flex justify-content-center">
       {login ? (
-        <Card className="card " style={{ width: "300px" }}>
-          <Card.Header>
-            <h5>Log In</h5>
-            <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
-              Click Login button in the Navbar for Google Login
-            </p>
+        <Card>
+          <Card.Header
+            style={{
+              fontSize: "1.5rem",
+              paddingInline: "1rem",
+              paddingBlock: "0.5rem",
+              fontWeight: "500",
+            }}
+          >
+            Welcome to the Praizer Portal
           </Card.Header>
           <Card.Body>
+            <div
+              style={{
+                fontSize: "2rem",
+                fontWeight: "600",
+                marginBottom: "1rem",
+              }}
+            >
+              Log In
+            </div>
             <Form
-              style={{ display: "grid", gap: "1rem" }}
+              style={{ display: "grid", gap: "1.5rem" }}
               onSubmit={handleSubmit}
             >
               <Form.Group>
@@ -59,8 +91,12 @@ const LoginCard = () => {
                   value={formData?.username}
                   name="username"
                   required
-                  placeholder="Username"
+                  placeholder="Email"
                   onChange={handleChange}
+                  style={{
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                  }}
                 />
               </Form.Group>
 
@@ -70,61 +106,64 @@ const LoginCard = () => {
                   placeholder="Password"
                   rows={3}
                   required
+                  value={formData?.password}
+                  onChange={handleChange}
+                  name="password"
                   style={{
                     boxShadow:
                       "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
                   }}
-                  value={formData?.password}
-                  onChange={handleChange}
-                  name="password"
                 />
               </Form.Group>
 
-              <div
+              <Form.Group
                 style={{
-                  marginInline: "1rem",
                   display: "flex",
-                  justifyContent: "flex-end",
+                  flexDirection: "column",
+                  justifyContent: "center",
                   gap: "1rem",
+                  fontSize: "1rem",
                 }}
               >
-                <button
-                  type="submit"
-                  className="pink-button"
-                  style={{ height: "3rem", fontSize: "1rem", width: "100px" }}
-                >
+                <button type="submit" className="pink-button">
                   Login
                 </button>
                 <button
                   className="pink-button"
                   type="button"
                   onClick={() => setLogin(!login)}
-                  style={{ height: "3rem", fontSize: "1rem", width: "100px" }}
                 >
-                  SignUp
+                  Sign Up
                 </button>
-              </div>
+                <button
+                  className="pink-button"
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onClick={GoogleLogin}
+                >
+                  Login with <FcGoogle style={{ marginLeft: "0.2rem" }} />
+                  oogle
+                </button>
+              </Form.Group>
             </Form>
-            <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
-              <div
-                className="mt-1"
-                style={{ cursor: "pointer" }}
-                onClick={GoogleLogin}
-              >
-                <b>
-                  {" "}
-                  <NavLink>Login with Google</NavLink>
-                </b>
-              </div>
-            </p>
           </Card.Body>
           <Card.Footer>
-            <u>
-              {" "}
-              <p style={{ fontSize: ".8rem", fontWeight: "100%" }}>
-                <BiCopyright /> {""}All Right Reserved. Designed by Gods
-              </p>
-            </u>
+            <div
+              style={{
+                fontSize: ".8rem",
+                fontWeight: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "0.2rem",
+              }}
+            >
+              <BiCopyright /> All Right Reserved. Designed by Gods
+            </div>
           </Card.Footer>
         </Card>
       ) : (

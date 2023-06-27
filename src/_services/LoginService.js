@@ -4,7 +4,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
 
-export const LoginService = async (data) => {
+export const FirebaseLogin = async (data) => {
   try {
     const requestBody = {
       IdToken: data,
@@ -36,18 +36,33 @@ export const GoogleLogin = async () => {
   }
 };
 
-export const LoginWithUsername = async (data) => {
+export const SignUp = async (data) => {
   try {
-    // api.defaults.headers["Content-Type"] = "application/json";
-    console.log("Request", data);
     const res = await api.post("/login/SignUp", data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    return res.data;
+    return res;
   } catch (error) {
-    console.log(error);
+    return error.response;
   }
+};
+
+export const Login = async (data) => {
+  try {
+    const res = await api.post("/login/LogIn", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const Logout = async () => {
+  auth.signOut();
+  sessionStorage.clear();
 };

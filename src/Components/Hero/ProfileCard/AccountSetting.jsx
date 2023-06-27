@@ -5,14 +5,12 @@ import {
   UpdateUserDetailsByUid,
 } from "../../../_services/UserService";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../../utils/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../../../Context/Context";
 import LoadingSpinner from "../../subComponents/LoadingSpinner";
+import placeholder from "../../../assets/profile_placeholder.jpg";
 
 const AccountSetting = () => {
   const { showToast } = useContext(Context);
-  const [user] = useAuthState(auth);
   const [formData, setFormData] = useState({
     dateOfBirth: "",
     dateOfJoining: "",
@@ -26,6 +24,7 @@ const AccountSetting = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   const [userData, setUserData] = useState([]);
+  const currentUserId = sessionStorage.getItem("currentUserId");
 
   const fileInputRef = useRef(null);
 
@@ -39,11 +38,10 @@ const AccountSetting = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      fetchUserData(user?.uid);
-    }
+    fetchUserData(currentUserId);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   const handleProfilePictureClick = () => {
     if (fileInputRef.current) {
@@ -86,7 +84,7 @@ const AccountSetting = () => {
     const formRequest = new FormData();
 
     // Append each property of the request object to the FormData
-    formRequest.append("uid", user?.uid);
+    formRequest.append("uid", currentUserId);
     formRequest.append("firstName", formData.firstName);
     formRequest.append("lastName", formData.lastName);
     formRequest.append("dateOfBirth", formData.dateOfBirth);
@@ -131,7 +129,9 @@ const AccountSetting = () => {
               onClick={handleProfilePictureClick}
             >
               <img
-                src={formData.photoUrl}
+                src={
+                  formData.photoUrl === null ? placeholder : formData.photoUrl
+                }
                 alt="Profile_Picture"
                 style={{
                   marginTop: "10px",
