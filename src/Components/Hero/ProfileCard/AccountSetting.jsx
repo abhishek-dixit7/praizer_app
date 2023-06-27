@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Form, Button, Card, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState, useContext, useRef } from "react";
+import { Form, Card } from "react-bootstrap";
 import {
   GetUserDetailsByUid,
   UpdateUserDetailsByUid,
@@ -20,26 +20,14 @@ const AccountSetting = () => {
     firstName: "",
     lastName: "",
     photoUrl: "",
+    profileFile: "",
   });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   const [userData, setUserData] = useState([]);
 
-  useEffect(() => {
-    if (user) {
-      fetchUserData(user?.uid);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+  const fileInputRef = useRef(null);
 
   const fetchUserData = async (uid) => {
     try {
@@ -50,20 +38,67 @@ const AccountSetting = () => {
     } catch (error) {}
   };
 
+  useEffect(() => {
+    if (user) {
+      fetchUserData(user?.uid);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const handleProfilePictureClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      console.log(selectedFile);
+      const imageReader = new FileReader();
+      imageReader.readAsDataURL(selectedFile);
+      imageReader.onloadend = () => {
+        setFormData((previousData) => ({
+          ...previousData,
+          photoUrl: imageReader.result,
+        }));
+      };
+      console.log(selectedFile);
+      setFormData((previousData) => ({
+        ...previousData,
+        profileFile: selectedFile,
+      }));
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const request = {
-      uid: user?.uid,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      dateOfBirth: formData.dateOfBirth,
-      dateOfJoining: formData.dateOfJoining,
-      email: formData.email,
-      //For now setting the photo URL as the previous one
-      photoUrl: userData.photoUrl,
-    };
+
+    const formRequest = new FormData();
+
+    // Append each property of the request object to the FormData
+    formRequest.append("uid", user?.uid);
+    formRequest.append("firstName", formData.firstName);
+    formRequest.append("lastName", formData.lastName);
+    formRequest.append("dateOfBirth", formData.dateOfBirth);
+    formRequest.append("dateOfJoining", formData.dateOfJoining);
+    formRequest.append("email", formData.email);
+    formRequest.append("photoUrl", userData.photoUrl);
+    formRequest.append("profileFile", formData.profileFile);
+
+    //Setting the Edit button to true
     setEdit(true);
-    UpdateUserDetailsByUid(JSON.stringify(request)).then((x) => {
+
+    UpdateUserDetailsByUid(formRequest).then((x) => {
       if (x.status === 200) {
         navigate("/");
         showToast("Update Successful!", "success");
@@ -72,6 +107,7 @@ const AccountSetting = () => {
       }
     });
   };
+
   if (loading) {
     return (
       <div className="mt-5">
@@ -90,26 +126,31 @@ const AccountSetting = () => {
             className="mb-3 d-flex justify-content-center align-items-center"
             style={{ gap: "2rem" }}
           >
-            <div style={{ cursor: "pointer" }}>
+            <div
+              className="profile-picture-container"
+              onClick={handleProfilePictureClick}
+            >
               <img
-                src={user?.photoURL}
-                alt="Selected"
+                src={formData.photoUrl}
+                alt="Profile_Picture"
                 style={{
                   marginTop: "10px",
-                  maxWidth: "400px",
+                  width: "120px",
                   borderRadius: "50%",
                   boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                  objectFit: "cover",
                 }}
               />
             </div>
-            <Form.Control
+            <input
               type="file"
-              //onChange={handleImageChange}
-              accept="image/*"
+              accept="image/png, image/jpeg"
+              ref={fileInputRef}
+              onChange={handleFileChange}
               style={{ display: "none" }}
               disabled={edit}
-              //value={userData?.photoUrl}
             />
+
             <Form.Label style={{ fontSize: "2.5rem", fontWeight: "500" }}>
               {userData?.firstName + " " + userData?.lastName}
             </Form.Label>
@@ -130,7 +171,7 @@ const AccountSetting = () => {
             <Form.Control
               type="email"
               value={formData?.email}
-              disabled={edit}
+              disabled={true}
               name="email"
               onChange={handleChange}
             />
@@ -165,22 +206,21 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Row>
-            <Col md={4}>
-              <Button
-                variant="primary"
-                onClick={() => setEdit(!edit)}
-                disabled={!edit}
-              >
-                Edit
-              </Button>
-            </Col>
-            <Col md={8}>
-              <Button variant="primary" type="submit" disabled={edit}>
-                Submit
-              </Button>
-            </Col>
-          </Row>
+          <Form.Group
+            style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+          >
+            <button
+              className="pink-button"
+              onClick={() => setEdit(!edit)}
+              disabled={!edit}
+            >
+              Edit
+            </button>
+
+            <button className="pink-button" type="submit" disabled={edit}>
+              Submit
+            </button>
+          </Form.Group>
         </Form>
       </Card>
     </div>

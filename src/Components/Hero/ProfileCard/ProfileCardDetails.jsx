@@ -43,6 +43,7 @@ export default function ProfileCardDetails() {
             style={{
               marginTop: "1rem",
               border: " 8px solid #b01c86b5",
+              maxWidth: "55%",
             }}
           />
 

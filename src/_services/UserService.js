@@ -32,6 +32,9 @@ export const GetUserDetailsByUid = async (uid) => {
 
 export const UpdateUserDetailsByUid = async (data) => {
   try {
+    // const config = {
+    //   ContentType: "application/x-www-form-urlencoded",
+    // };
     const response = await api.post("/Users/updateUserDetailsByUid", data);
     return response;
   } catch (error) {
