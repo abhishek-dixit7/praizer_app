@@ -16,6 +16,8 @@ api.interceptors.response.use(
     if (token) {
       // Store the token for future API calls
       localStorage.setItem("jwtToken", token);
+      localStorage.setItem("currentUserId", response.data.currentUserId);
+
       // You can also set the token in your application's state management solution
     }
     return response;

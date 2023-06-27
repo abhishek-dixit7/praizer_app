@@ -4,12 +4,17 @@ import { Card, Form } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import { Context } from "../../Context/Context";
-import { GoogleLogin, LoginService } from "../../_services/LoginService";
+import {
+  GoogleLogin,
+  LoginService,
+  LoginWithUsername,
+} from "../../_services/LoginService";
 
 const SignUpCard = ({ setLogin }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    usernane: "",
+    firstName: "",
+    lastName: "",
+    username: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -26,18 +31,20 @@ const SignUpCard = ({ setLogin }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const request = {
-      name: formData.name,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       username: formData.username,
       password: formData.password,
     };
-    // UpdateUserDetailsByUid(JSON.stringify(request)).then((x) => {
-    //   if (x.status === 200) {
-    //     navigate("/");
-    //     showToast("Update Successful!", "success");
-    //   } else {
-    //     showToast("Updation Failed!", "error");
-    //   }
-    // });
+    LoginWithUsername(JSON.stringify(request)).then((x) => {
+      console.log("x", x);
+      if (x.status === 200) {
+        navigate("/");
+        showToast("Update Successful!", "success");
+      } else {
+        showToast("Updation Failed!", "error");
+      }
+    });
   };
   return (
     <div>
@@ -55,7 +62,7 @@ const SignUpCard = ({ setLogin }) => {
               <Form.Group>
                 <Form.Control
                   type="text"
-                  placeholder="Name"
+                  placeholder="First Name"
                   rows={3}
                   required
                   style={{
@@ -64,14 +71,29 @@ const SignUpCard = ({ setLogin }) => {
                   }}
                   value={formData?.name}
                   onChange={handleChange}
-                  name="name"
+                  name="firstName"
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Control
-                  type="input"
-                  value={formData?.userName}
-                  name="userName"
+                  type="text"
+                  placeholder="Last Name"
+                  rows={3}
+                  required
+                  style={{
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+                  }}
+                  value={formData?.lastName}
+                  onChange={handleChange}
+                  name="lastName"
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  type="email"
+                  value={formData?.username}
+                  name="username"
                   required
                   placeholder="Username"
                   onChange={handleChange}

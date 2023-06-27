@@ -20,7 +20,7 @@ export const LoginService = async (data) => {
         },
       }
     );
-    console.log("Token",response)
+    console.log("Token", response);
     // The JWT token is automatically handled by the interceptor, so you don't need to do anything extra here.
     console.log("Login successful!");
   } catch (error) {
@@ -31,6 +31,22 @@ export const LoginService = async (data) => {
 export const GoogleLogin = async () => {
   try {
     await signInWithPopup(auth, googleProvider);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const LoginWithUsername = async (data) => {
+  try {
+    // api.defaults.headers["Content-Type"] = "application/json";
+    console.log("Request", data);
+    const res = await api.post("/login/SignUp", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res.data;
   } catch (error) {
     console.log(error);
   }
