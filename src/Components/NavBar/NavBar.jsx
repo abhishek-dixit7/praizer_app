@@ -1,24 +1,21 @@
 import { React, useEffect, useContext, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, NavLink } from "react-router-dom";
 import { Navbar, Form, Button, Container, NavDropdown } from "react-bootstrap";
-//import { GiShoppingCart } from "react-icons/gi";
 import { IoMdNotifications } from "react-icons/io";
-import { auth } from "../../utils/firebase";
+
 import brand_logo from "../../assets/brand_logo.jpg";
-import { GoogleLogin, LoginService } from "../../_services/LoginService";
+import placeholder from "../../assets/profile_placeholder.jpg";
+import { Logout } from "../../_services/LoginService";
 import { Context } from "../../Context/Context";
 import { GetUserDetailsByUid } from "../../_services/UserService";
 
 const NavBar = () => {
-  const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
-  const [currentUser] = useAuthState(auth);
   const { showToast } = useContext(Context);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
+  const currentUserId = sessionStorage.getItem("currentUserId");
 
   const GetUser = async () => {
-    GetUserDetailsByUid(currentUser.uid)
+    GetUserDetailsByUid(currentUserId)
       .then((x) => {
         setUser(x);
         // console.log(x);
@@ -27,20 +24,9 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    if (currentUser) {
-      try {
-        LoginService(currentUser.accessToken);
-        GetUser();
-        navigate("/");
-        showToast("Logged In Successfully!", "success");
-      } catch (err) {
-        navigate("/notfound");
-      }
-    } else {
-      console.log("please login");
-    }
+    GetUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser]);
+  }, []);
 
   return (
     <>
@@ -78,7 +64,7 @@ const NavBar = () => {
             <a href="/">
               <IoMdNotifications className="d-inline-block align-top navbar__icons" />
             </a>
-            {!currentUser && (
+            {/* {!user && (
               <div
                 className="mt-1"
                 style={{ cursor: "pointer" }}
@@ -86,13 +72,13 @@ const NavBar = () => {
               >
                 <Navbar.Text className="text-white">Login</Navbar.Text>
               </div>
-            )}
-            {currentUser && (
+            )} */}
+            {user && (
               <NavDropdown
                 title={
                   <div>
                     <img
-                      src={user.photoUrl}
+                      src={user.photoUrl === null ? placeholder : user.photoUrl}
                       width="30"
                       height="30"
                       alt="profile_logo"
@@ -120,8 +106,11 @@ const NavBar = () => {
                   className="dropdown-item"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    auth.signOut();
+                    Logout();
                     showToast("Sorry to let you go!", "error");
+                    setTimeout(() => {
+                      window.location.href = "/";
+                    }, 2000);
                   }}
                 >
                   Logout

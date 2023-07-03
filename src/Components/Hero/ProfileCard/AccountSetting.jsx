@@ -5,14 +5,12 @@ import {
   UpdateUserDetailsByUid,
 } from "../../../_services/UserService";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../../utils/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Context } from "../../../Context/Context";
 import LoadingSpinner from "../../subComponents/LoadingSpinner";
+import placeholder from "../../../assets/profile_placeholder.jpg";
 
 const AccountSetting = () => {
   const { showToast } = useContext(Context);
-  const [user] = useAuthState(auth);
   const [formData, setFormData] = useState({
     dateOfBirth: "",
     dateOfJoining: "",
@@ -26,6 +24,7 @@ const AccountSetting = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   const [userData, setUserData] = useState([]);
+  const currentUserId = sessionStorage.getItem("currentUserId");
 
   const fileInputRef = useRef(null);
 
@@ -35,15 +34,15 @@ const AccountSetting = () => {
       setUserData(data);
       setFormData(data);
       setLoading(false);
+      console.log(formData);
     } catch (error) {}
   };
 
   useEffect(() => {
-    if (user) {
-      fetchUserData(user?.uid);
-    }
+    fetchUserData(currentUserId);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   const handleProfilePictureClick = () => {
     if (fileInputRef.current) {
@@ -74,10 +73,12 @@ const AccountSetting = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+    console.log(formData);
   };
 
   const handleSubmit = (event) => {
@@ -86,7 +87,7 @@ const AccountSetting = () => {
     const formRequest = new FormData();
 
     // Append each property of the request object to the FormData
-    formRequest.append("uid", user?.uid);
+    formRequest.append("uid", currentUserId);
     formRequest.append("firstName", formData.firstName);
     formRequest.append("lastName", formData.lastName);
     formRequest.append("dateOfBirth", formData.dateOfBirth);
@@ -97,6 +98,7 @@ const AccountSetting = () => {
 
     //Setting the Edit button to true
     setEdit(true);
+    console.log(formRequest);
 
     UpdateUserDetailsByUid(formRequest).then((x) => {
       if (x.status === 200) {
@@ -131,7 +133,9 @@ const AccountSetting = () => {
               onClick={handleProfilePictureClick}
             >
               <img
-                src={formData.photoUrl}
+                src={
+                  formData.photoUrl === null ? placeholder : formData.photoUrl
+                }
                 alt="Profile_Picture"
                 style={{
                   marginTop: "10px",
@@ -156,7 +160,7 @@ const AccountSetting = () => {
             </Form.Label>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="date"
@@ -166,7 +170,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
@@ -176,7 +180,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               type="text"
@@ -186,7 +190,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDOB">
+          <Form.Group className="mb-3">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               type="text"
@@ -196,7 +200,7 @@ const AccountSetting = () => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3 " controlId="formBasicDOJ">
+          <Form.Group className="mb-3 ">
             <Form.Label>Date of Joining</Form.Label>
             <Form.Control
               type="date"

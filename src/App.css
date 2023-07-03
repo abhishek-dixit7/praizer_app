@@ -1,5 +1,6 @@
 :root {
   --clr-primary-400: #b01c87;
+  --clr-primary-100: #b01c864f;
 }
 
 .App {
@@ -124,13 +125,18 @@ a {
 
 .pink-button {
   background-color: var(--clr-primary-400);
-  color: #fff;
+  color: #fff !important;
   border: none;
   padding-inline: 15px;
   padding-block: 8px;
   cursor: pointer;
   font-weight: bold;
   border-radius: 1rem;
+}
+
+.pink-button:hover {
+  background-color: var(--clr-primary-100);
+  color: #000 !important;
 }
 
 .pta-card {
@@ -195,5 +201,3 @@ input[type="range"]::-ms-thumb {
 .profileModal div span {
   font-weight: 400;
 }
-
-

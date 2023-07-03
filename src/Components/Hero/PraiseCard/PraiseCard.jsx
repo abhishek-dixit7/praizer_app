@@ -6,14 +6,12 @@ import { recogniseValues } from "../../data/constants";
 
 import LoadingSpinner from "../../subComponents/LoadingSpinner";
 import RecognizePreview from "./RecognisePreview";
-import { auth } from "../../../utils/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { createPraise } from "../../../_services/PraiseService";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../../Context/Context";
 
 function PraiseCard(props) {
-  const [currentUser] = useAuthState(auth);
+  const currentUserId = sessionStorage.getItem("currentUserId");
   // eslint-disable-next-line no-unused-vars
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -98,7 +96,7 @@ function PraiseCard(props) {
         ...prevFormData,
         userName: `${data.firstName} ${data.lastName}`,
         userPraisedUid: data.uid,
-        praizerUid: currentUser.uid,
+        praizerUid: currentUserId,
       })); // Set loading to false when data is retrieved
     } catch (error) {
       console.log(error);

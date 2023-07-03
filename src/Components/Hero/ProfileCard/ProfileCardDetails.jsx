@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import brand_logo from "../../../assets/brand_logo.jpg";
+import placeholder from "../../../assets/profile_placeholder.jpg";
 import { NavLink } from "react-router-dom";
 import { BsInfoCircleFill } from "react-icons/bs";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../utils/firebase";
 import { GetUserDetailsByUid } from "../../../_services/UserService";
 
 export default function ProfileCardDetails() {
-  const [currentUser] = useAuthState(auth);
   const [user, setUser] = useState({});
+  const currentUserId = sessionStorage.getItem("currentUserId");
 
   const GetUser = async () => {
-    GetUserDetailsByUid(currentUser.uid)
+    GetUserDetailsByUid(currentUserId)
       .then((x) => {
         setUser(x);
         // console.log(x);
@@ -38,7 +36,7 @@ export default function ProfileCardDetails() {
           }}
         >
           <Card.Img
-            src={user ? user.photoUrl : brand_logo}
+            src={user.photoUrl === null ? placeholder : user.photoUrl}
             alt="Profile Photo"
             style={{
               marginTop: "1rem",

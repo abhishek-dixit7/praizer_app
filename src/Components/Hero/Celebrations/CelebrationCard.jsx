@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import BirthdayCard from "./BirthdayCard";
 import { fetchUsersData } from "../../../_services/UserService";
+import placeholder from "../../../assets/profile_placeholder.jpg";
 
 export default function CelebrationCard() {
   const [userData, setUserData] = useState([]);
@@ -43,7 +44,7 @@ export default function CelebrationCard() {
         <Card.Body>
           {userData?.map((item) => (
             <BirthdayCard
-              img={item.photoUrl}
+              img={item.photoUrl === null ? placeholder : item.photoUrl}
               name={item.firstName + " " + item.lastName}
               dob={DateFormater(item.dateOfBirth)}
               message={"Happy Birthday"}
