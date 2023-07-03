@@ -137,6 +137,7 @@ const LoginCard = () => {
                 </button>
                 <button
                   className="pink-button"
+                  type="button"
                   style={{
                     cursor: "pointer",
                     display: "flex",
